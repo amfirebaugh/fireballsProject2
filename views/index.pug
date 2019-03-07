@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    .container
+        #rxJumbo.jumbotron.mt-3
+            // Page Title and Icon Row
+            .row.mb-2
+                .col-md-10.align-self-end
+                    h1.display-4 InteRXact                
+                .col-md-2
+                    img#rxIcon(src='/assets/RX_icon.png')
+            // Welcome text/instruction row
+            .row
+                .col-md-12
+                    p.lead Welcome! We are here to help you check for drug interactions between your medications. Your information will be stored so that you can come back to view all of your past searches and continue to search new combinations.
+                    br
+                    .text-center
+                        p.lead
+                            strong To begin, who are you?
+            // User button row
+            .row
+                .col-md-6
+                    .mb-3.text-center
+                        // ADD HREF LINK to new user form page
+                        a#newUser.btn.userTypeBtn.btn-lg(href='#', role='button') New User
+                .col-md-6
+                    .mb-3.text-center
+                        // ADD HREF LINK to existing user page
+                        a#existUser.btn.userTypeBtn.btn-lg(href='#', role='button') Returning User
