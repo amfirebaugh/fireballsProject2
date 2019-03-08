@@ -1,3 +1,6 @@
+// Require data model
+var db = require("../models");
+
 // Dependencies
 const express = require('express');
 
