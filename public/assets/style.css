@@ -1,0 +1,32 @@
+/* layout page */
+
+body {
+    color: white;
+}
+
+.rxFooterLinks {
+    color: #00485E;
+    padding: 0px 20px 0px 20px;
+}
+
+#footerLinkRB {
+    border-right: 0.5px solid #00485E;
+}
+
+.rxFooterLinks:hover {
+    color: #00A88F;
+}
+
+/* index page */
+
+#rxJumbo {
+    background-color: #00A88F;
+}
+
+#rxIcon {
+    max-height: 100px;
+}
+
+.userTypeBtn {
+    background-color: #FCBE05;
+}

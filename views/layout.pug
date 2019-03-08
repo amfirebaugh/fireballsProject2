@@ -1,0 +1,25 @@
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        title InteRXact
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        // Bootstrap CSS
+        link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
+        // Our CSS
+        link(rel='stylesheet', type='text/css', media='screen', href='/assets/style.css')
+    body
+        block content
+        footer
+            .container.mb-3
+                .row
+                    .col-md-12.text-center
+                        p
+                        // ADD HREF LINK
+                        a#footerLinkRB.rxFooterLinks(href='#') API Members List
+                        a.rxFooterLinks(href='https://github.com/amfirebaugh/fireballsProject2') GitHub Repo
+        script(src='/bower_components/jquery/dist/jquery.js')
+        // I don't think we need the bootstrap popper?
+        script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
+        // Our JS file
+        script(src='/assets/rxApp.js')
