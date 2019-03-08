@@ -1,24 +1,46 @@
+// Require data model
 var db = require("../models");
 
+// Dependencies
+const express = require('express');
+
+// Create express router object
+const router = express.Router();
+
+var userData = require("../data/user-data");
+var drugData = require("../data/drug-data");
+
+// ===============================================================================
+// ROUTING
+// ===============================================================================
+
 module.exports = function(app) {
-  // Get all examples
-  app.get("/api/examples", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
-      res.json(dbExamples);
+    // API GET Requests
+    // Below code handles when users "visit" a page.
+    // In each of the below cases when a user visits a link
+    // ---------------------------------------------------------------------------
+  
+    app.get("/api/users", function(req, res) {
+      res.json(userData);
     });
-  });
+  
+    app.get("/api/drug", function(req, res) {
+      res.json(drugData);
+    });
+  
+    // API POST Requests
+    // Below code handles when a user submits a form and thus submits data to the server.
+    // In each of the below cases, when a user submits form data (a JSON object)
+    // ...the JSON is pushed to the appropriate JavaScript array
+    // ---------------------------------------------------------------------------
+  
+    app.post("/api/users", function(req, res) {
+        userData.push(req.body);
+        res.json();
+    });
 
-  // Create a new example
-  app.post("/api/examples", function(req, res) {
-    db.Example.create(req.body).then(function(dbExample) {
-      res.json(dbExample);
-    });
-  });
-
-  // Delete an example by id
-  app.delete("/api/examples/:id", function(req, res) {
-    db.Example.destroy({ where: { id: req.params.id } }).then(function(dbExample) {
-      res.json(dbExample);
-    });
-  });
-};
+    app.post("/api/drugs", function(req, res) {
+          drugData.push(req.body);
+          res.json();
+      });
+}
