@@ -17,6 +17,13 @@ body {
     color: #00A88F;
 }
 
+/* all pages except home */
+
+.returnHomeBtn {
+    background-color: #00485E;
+    color: white;
+}
+
 /* index page */
 
 #rxJumbo {
