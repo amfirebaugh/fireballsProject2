@@ -1,7 +1,6 @@
 
  module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define("User", {
-    // Giving the Author model a name of type STRING
     firstname: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -17,11 +16,11 @@
         }
     },
     age: {
-      type: DataTypes.INT,
+      // age range is string example:  '10 - 19'
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isInt: true,
-        len: [2,3]
+        len: [1]
         }
     },
     sex: {
