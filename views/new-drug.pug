@@ -39,7 +39,7 @@ block content
                     form.form-inline(method='POST', action='/api/getDrug')
                         .form-row.mb-5.mx-auto
                         label.sr-only(for='drugSearch') Drug Search
-                        input#drugSearch.form-control.mr-4.align-middle(type='text', placeholder='Ex: lip')
+                        input#DrugNameField.form-control.mr-4.align-middle(name='DrugNameText', type='text', placeholder='Ex: lip')
                         button#drugSearchSubmit.btn.userTypeBtn(type='submit') Search
                 #drugSearchResultsDiv.col-md-6.text-center
                     p Results will appear below after you click Search:
