@@ -32,14 +32,14 @@ block content
                         a#male.dropdown-item.rxSex(href='#') Male
                 // User clicks Submit
                 .col-md-4.text-center
-                    a#EXUSearchSubmit.btn.userTypeBtn.btn-lg(href='#', role='button') Submit
+                    a#EXUSearchSubmit.btn.userTypeBtn.btn-lg(href='/drug/interaction-results', role='button') Submit
             // Row in case existing user wants to go enter a new drug combo associated with their account
             .row.mb-5
                 .col-md-12.text-center
                     p.lead.d-inline.mr-3 OR...Would you like to add a new medication combination to your account?
-                    a#EXUNewComboPage.btn.userTypeBtn.d-inline(href='#', role='button') Click Here
+                    a#EXUNewComboPage.btn.userTypeBtn.d-inline(href='/drug/new', role='button') Click Here
             // Return Home Row -- need on all pages except Home
             .row
                 .col-md-12.text-center
                     p.d-inline.mr-2 Confused or need to start over?
-                    a.btn.btn-sm.d-inline.returnHomeBtn(href='#', role='button') Return Home
+                    a.btn.btn-sm.d-inline.returnHomeBtn(href='/', role='button') Return Home
