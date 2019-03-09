@@ -15,7 +15,7 @@ block content
                     p.lead To enter a medication combination start by selecting your email address from the &quot;Find You&quot; menu and then entering medication names in the text fields.
                     br
                     p Don&apos;t know how to spell a medication? Use our search bar below!
-            form.form-inline
+            form.form-inline(method='POST', action='/api/drug')
                 .form-row.mb-5.mx-auto
                     // User selects Email
                     .dropdown.mr-5
