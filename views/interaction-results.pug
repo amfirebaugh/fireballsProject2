@@ -1,0 +1,54 @@
+extends layout
+
+block content
+    .container
+        #rxJumbo.jumbotron.mt-3
+            // Page Title and Icon Row -- keep for all pages
+            .row.mb-2
+                .col-md-10.align-self-end
+                    h1.display-3 InteRXact
+                .col-md-2
+                    img#rxIcon(src='/assets/RX_icon.png')
+            // Welcome text/instruction row
+            .row.mb-4
+                .col-md-12
+                    p.lead Here are the most common drug interactions for [their selection].
+                    br
+                    p.d-inline.mr-3 Don&apos;t see any results? Try entering the medication names again and check spelling:
+                    a.btn.btn-sm.returnNewDrugBtn.userTypeBtn(href='/drug/new', role='button') Click Here
+            .row.mb-5
+                .col-md-10.text-center.mx-auto
+                    .row
+                        .col-md-6
+                            p.lead Based on Your Age: 
+                        .col-md-6
+                            p.lead Based on your Sex: 
+                    .row.my-5
+                        .col-md-12
+                            p Additionally, this table shows interactions based on how long you&apos;ve been taking both medications together:
+                            .table-responsive
+                                table.table.table-bordered
+                                    thead
+                                        tr
+                                            th(scope='col') 0-1 months:
+                                            th(scope='col') 1-6 months:
+                                            th(scope='col') 6-12 months:
+                                            th(scope='col') 1-2 years:
+                                            th(scope='col') 2-5 years:
+                                            th(scope='col') 5-10 years:
+                                            th(scope='col') 10+ years:
+                                    tbody
+                                        // Sample for JS:
+                                        tr
+                                            td blah 1
+                                            td blah 2
+                                            td blah 3
+                                            td blah 4
+                                            td blah 5
+                                            td blah 6
+                                            td blah 7
+            // Return Home Row -- need on all pages except Home
+            .row.mt-3
+                .col-md-12.text-center
+                    p.d-inline.mr-2 Confused or need to start over?
+                    a.btn.btn-sm.returnHomeBtn(href='/', role='button') Return Home
