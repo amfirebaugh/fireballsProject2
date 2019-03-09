@@ -8,15 +8,14 @@ block content
                 .col-md-10.align-self-end
                     h1.display-4 InteRXact               
                 .col-md-2
-                    img#rxIcon(src='RX_icon.png')
+                    img#rxIcon(src='/assets/RX_icon.png')
             // Instruction Row
             .row
                 .col-md-12
                     p.lead Fill out this quick form and click Submit to initialize your account. Then you&apos;ll automatically see the page where you can enter drug combinations that will save to your account!                   
-                br                   
-                p If you have any questions click the 
-                ion-icon#questIcon(name='help')
-                |  icon next to each input for more information.    
+                    br                   
+                    p If you have any questions click the 
+                        ion-icon#questIcon(name='help') icon next to each input for more information.    
             hr#rxHR.my-4
             // nested container for the form
             .container.mt-5
@@ -45,7 +44,7 @@ block content
                             .form-row
                                 // Age Dropdown
                                 .dropdown.mr-4
-                                    label.lead.mr-2(for='age') Age:                                   
+                                    label.lead.mr-2(for='age') Age: 
                                     button#dropdownAgeButton.btn.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Select                          
                                     .dropdown-menu(aria-labelledby='dropdownAgeButton')
                                         // id's are so we can grab them in JS file later if needed
@@ -54,7 +53,7 @@ block content
                                         a#30.dropdown-item.rxAge(href='#') 30-39
                                         a#40.dropdown-item.rxAge(href='#') 40-49 
                                         a#50.dropdown-item.rxAge(href='#') 50-59
-                                        a#60.dropdown-item.rxAge(href='#') 60+                      
+                                        a#60.dropdown-item.rxAge(href='#') 60+
                                     span.rxHelp
                                         ion-icon#ageHelp(name='help')
                                 // Sex Dropdown (same form-row as Age)
@@ -72,9 +71,3 @@ block content
                                 .col-md-12
                                     .float-right
                                         a#newUserSubmit.btn.userTypeBtn.btn-lg(href='#', role='button') Submit
-            // Return Home Row -- need on all pages except Home
-            .container
-                .row
-                    .col-md-12.text-center
-                        p.d-inline.mr-2 Confused or need to start over?
-                        a.btn.btn-sm.userTypeBtn.d-inline.returnHomeBtn(href='#', role='button') Return Home

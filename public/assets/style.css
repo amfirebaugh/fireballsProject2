@@ -24,6 +24,7 @@ body {
     color: white;
 }
 
+
 /* index page */
 
 #rxJumbo {
@@ -38,7 +39,8 @@ body {
     background-color: #FCBE05;
 }
 
-/* new-user page */
+
+/* New User Page */
 
 #questIcon, .rxHelp {
     font-size: 1.4rem;
@@ -49,4 +51,13 @@ body {
 .form-row {
     margin-right: 0px;
     margin-left: 0px;
+}
+
+#rxHR {
+    background-color: #FCBE05;
+    height: 1px;
+}
+
+.rxInputDD {
+    background-color: lightgray;
 }
