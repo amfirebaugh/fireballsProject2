@@ -30,3 +30,16 @@ body {
 .userTypeBtn {
     background-color: #FCBE05;
 }
+
+/* new-user page */
+
+#questIcon, .rxHelp {
+    font-size: 1.4rem;
+    margin: 0px 3px 0px 3px;
+    color: #00485E;
+}
+
+.form-row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
