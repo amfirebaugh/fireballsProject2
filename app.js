@@ -2,6 +2,8 @@
 require("dotenv").config();
 var express = require("express");
 
+var path = require('path');
+
 var db = require("./models");
 
 // Sets up Express app

@@ -13,7 +13,9 @@ module.exports = function(sequelize, DataTypes) {
         validate: {
           len: [1]
         }
-      },
+      }
+
+      /*
       email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -21,6 +23,7 @@ module.exports = function(sequelize, DataTypes) {
             isEmail: true
         }
       }
+      */
     });
   
     Drug.associate = function(models) {
@@ -35,7 +38,7 @@ module.exports = function(sequelize, DataTypes) {
         
         Setting the key constraint explicitly below for self documenting purposes
       */
-      Drug.belongsTo(models.User, {foreignKey: 'email', targetKey: 'email'});
+      Drug.belongsTo(models.User, {foreignKey: 'drug_ibfk_1'});
     };
   
     return Drug;

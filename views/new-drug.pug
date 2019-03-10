@@ -1,0 +1,51 @@
+extends layout
+
+block content
+    .container
+        #rxJumbo.jumbotron.mt-3
+            // Page Title and Icon Row -- keep for all pages
+            .row.mb-2
+                .col-md-10.align-self-end
+                    h1.display-3 InteRXact
+                .col-md-2
+                    img#rxIcon(src='/assets/RX_icon.png')
+            // Welcome text/instruction row
+            .row.mb-2
+                .col-md-12
+                    p.lead Select your email address, enter two medications, and click See Results. Spelling matters! Use our search bar below for help.
+            form(method='GET', action='/users')
+                // User selects Email
+                .form-group.mb-4.text-center
+                    .dropdown.mr-4
+                        button#dropdownNDFindYouButton.btn.btn-lg.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Email Addresses
+                        .dropdown-menu(aria-labelledby='dropdownNDFindYouButton')
+                            // insert anchor tag with classes: .dropdown-item and something for this group, give each unique one an ID, and href just #
+            form(method='POST', action='api/interaction')
+                .form-group.mb-4.text-center.clearfix
+                    // User inputs Drug1
+                    .col-md-6.float-left
+                        label.sr-only(for='drug1') Drug 1
+                        input#drug1.form-control-lg(type='text', placeholder='Medication 1')
+                    // User inputs Drug2
+                    .col-md-6.float-right
+                        label.sr-only(for='drug2') Drug 2
+                        input#drug2.form-control-lg(type='text', placeholder='Medication 2')
+                // Submit Btn
+                .form-group.mb-2.clearfix
+                    button#newDrugComboSubmit.btn.float-right.userTypeBtn.btn-lg(type='submit') See Results
+            // Begin Drug Name Search for Spelling Section
+            .row.mt-5
+                .col-md-12.text-center
+                    p Type in the first few letters of the medication you&apos;re trying to spell. Even just two letters is enough! Medications will appear below when you click Search.
+                    form.form-inline(method='POST', action='/api/getDrug')
+                        .form-row.mb-3.mx-auto
+                            label.sr-only(for='drugSearch') Drug Search
+                            input#drugSearch.form-control.mr-4.align-middle(type='text', placeholder='Ex: lip')
+                            button#drugSearchSubmit.btn.userTypeBtn(type='submit') Search
+            .row
+                #drugSearchResultsDiv.col-md-8.mx-auto.text-center.mb-4
+                    // insert the drug search results from API
+            // Return Home Row -- need on all pages except Home
+            .row.mt-3
+                .col-md-12.text-center
+                    a.btn.btn-sm.returnHomeBtn(href='/', role='button') Return Home
