@@ -17,6 +17,14 @@ body {
     color: #00A88F;
 }
 
+/* all pages except home */
+
+.returnHomeBtn {
+    background-color: #00485E;
+    color: white;
+}
+
+
 /* index page */
 
 #rxJumbo {
@@ -29,4 +37,27 @@ body {
 
 .userTypeBtn {
     background-color: #FCBE05;
+}
+
+
+/* New User Page */
+
+#questIcon, .rxHelp {
+    font-size: 1.4rem;
+    margin: 0px 3px 0px 3px;
+    color: #00485E;
+}
+
+.form-row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+#rxHR {
+    background-color: #FCBE05;
+    height: 1px;
+}
+
+.rxInputDD {
+    background-color: lightgray;
 }

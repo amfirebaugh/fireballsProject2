@@ -21,11 +21,9 @@ block content
             .row
                 .col-md-6
                     .mb-3.text-center
-                        // ADD HREF LINK to new user form page
                         // ID just in case we need to grab in JS...not used in style css
-                        a#newUser.btn.userTypeBtn.btn-lg(href='#', role='button') New User
+                        a#newUser.btn.userTypeBtn.btn-lg(href='/users/new', role='button') New User
                 .col-md-6
                     .mb-3.text-center
-                        // ADD HREF LINK to existing user page
                         // ID just in case we need to grab in JS...not used in style css
-                        a#existUser.btn.userTypeBtn.btn-lg(href='#', role='button') Returning User
+                        a#existUser.btn.userTypeBtn.btn-lg(href='/users', role='button') Returning User

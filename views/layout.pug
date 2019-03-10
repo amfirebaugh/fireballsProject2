@@ -6,6 +6,8 @@ html
         meta(name='viewport', content='width=device-width, initial-scale=1')
         // Bootstrap CSS
         link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
+        // Ion Icons
+        link(href='https://unpkg.com/ionicons@4.4.4/dist/css/ionicons.min.css', rel='stylesheet')
         // Our CSS
         link(rel='stylesheet', type='text/css', media='screen', href='/assets/style.css')
     body
@@ -19,7 +21,10 @@ html
                         a#footerLinkRB.rxFooterLinks(href='#') API Members List
                         a.rxFooterLinks(href='https://github.com/amfirebaugh/fireballsProject2') GitHub Repo
         script(src='/bower_components/jquery/dist/jquery.js')
-        // I don't think we need the bootstrap popper?
+        // Definitely need popper, and here it is:
+        script(src='/bower_components/popper.js/dist/umd/popper.js')
         script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
+        // Ion Icons
+        script(src='https://unpkg.com/ionicons@4.4.4/dist/ionicons.js')
         // Our JS file
         script(src='/assets/rxApp.js')
