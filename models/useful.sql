@@ -16,7 +16,7 @@ select drugname1, drugname2, age, sex, firstname, lastname from user inner join 
 */
 
 /* get drugs for a single user by first name last name*/
-SELECT drugname1, drugname1 FROM drug INNER JOIN user on drug.email = user.email WHERE user.firstname = 'han' AND user.lastname = 'solo';
+SELECT drugname1, drugname2 FROM drug INNER JOIN user on drug.email = user.email WHERE user.firstname = 'han' AND user.lastname = 'solo';
 
 /* sequelized
 
@@ -25,7 +25,7 @@ SELECT drugname1, drugname1 FROM drug INNER JOIN user on drug.email = user.email
     var _q = Drug;
     _q.findAll({
     include: [{model: User,  required: true,}, ],
-    attributes: [['drugname1', 'drugname1'],['drugname1', 'drugname1']],
+    attributes: [['drugname1', 'drugname1'],['drugname2', 'drugname2']],
     where: {[Op.and]: [{'$user.firstname$': {[Op.eq]: 'han'}}, {'$user.lastname$': {[Op.eq]: 'solo'}}]},
     });
 
@@ -66,6 +66,12 @@ select drugname1, drugname2 from drug INNER JOIN user on drug.email = user.email
 
 /* sequelized
 
+var _q = Drug;
+    _q.findAll({
+    include: [{model: User,  required: true,}, ],
+    attributes: [['drugname1', 'drugname1'],['drugname2', 'drugname2']],
+    where: {[Op.and]: [{'$user.firstname$': {[Op.eq]: 'han'}}, {'$user.lastname$': {[Op.eq]: 'solo'}}]},
+    });
   
 
 */
@@ -82,6 +88,17 @@ select drugname1, drugname2, age, sex from drug INNER JOIN user on drug.email = 
 
 /* sequelized
 
+    const Op = Sequelize.Op;
+    http://docs.sequelizejs.com/manual/tutorial/querying.html
+
+    // Requiring our Todo model
+    var db = require("../models");
+
+    db.Drug.findAll({
+    include: [{model: User,  required: true,}, ],
+    attributes: ['drugname1', 'drugname2', 'age', 'sex'],
+    where: {email: 'solo@falcon.com'},
+    });
   
 
 */
