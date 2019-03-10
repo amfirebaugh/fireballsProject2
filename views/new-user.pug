@@ -12,6 +12,12 @@ block content
             // Instruction Row
             .row
                 .col-md-12
+                    p.lead Fill out the form below to initialize your account. You can then begin entering your drug combinations that will save to your account!                   
+                br                   
+                p If you have any questions click the 
+                ion-icon#questIcon(name='help')
+                |  icon next to each input for more information.    
+
                     p.lead Fill out this quick form and click Submit to initialize your account. Then you&apos;ll automatically see the page where you can enter drug combinations that will save to your account!                   
                     br                   
                     p If you have any questions click the 
@@ -20,7 +26,7 @@ block content
             .container.mt-5
                 .row.mb-5
                     .col-md-12
-                        form
+                        form(method="POST", action="/users/new")
                             // First Name Input Field
                             .form-group
                                 label.lead.mr-2(for='fName') First Name: 
@@ -47,12 +53,12 @@ block content
                                     button#dropdownAgeButton.btn.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Select                          
                                     .dropdown-menu(aria-labelledby='dropdownAgeButton')
                                         // id's are so we can grab them in JS file later if needed
-                                        a#10.dropdown-item.rxAge(href='#') 10-19
-                                        a#20.dropdown-item.rxAge(href='#') 20-29
-                                        a#30.dropdown-item.rxAge(href='#') 30-39
-                                        a#40.dropdown-item.rxAge(href='#') 40-49 
-                                        a#50.dropdown-item.rxAge(href='#') 50-59
-                                        a#60.dropdown-item.rxAge(href='#') 60+
+                                        a#10.dropdown-item.rxAge 10-19
+                                        a#20.dropdown-item.rxAge 20-29
+                                        a#30.dropdown-item.rxAge 30-39
+                                        a#40.dropdown-item.rxAge 40-49 
+                                        a#50.dropdown-item.rxAge 50-59
+                                        a#60.dropdown-item.rxAge 60+                      
                                     span.rxHelp
                                         ion-icon#ageHelp(name='help')
                                 // Sex Dropdown (same form-row as Age)
@@ -61,18 +67,17 @@ block content
                                     button#dropdownSexButton.btn.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Select
                                     .dropdown-menu(aria-labelledby='dropdownSexButton')
                                         // id's are so we can grab them in JS file later if needed
-                                        a#female.dropdown-item.rxSex(href='#') Female
-                                        a#male.dropdown-item.rxSex(href='#') Male
+                                        a#female.dropdown-item.rxSex Female
+                                        a#male.dropdown-item.rxSex Male
                                     span.rxHelp
                                         ion-icon#sexHelp(name='help')
                             // Submit Button Row
                             .form-row
                                 .col-md-12
                                     .float-right
-                                        a#newUserSubmit.btn.userTypeBtn.btn-lg(href='/drug/new', role='button') Submit
+                                        button#newUserSubmit.btn.userTypeBtn.btn-lg(type='submit') Submit
             // Return Home Row -- need on all pages except Home
             .container
                 .row
                     .col-md-12.text-center
-                        p.d-inline.mr-2 Confused or need to start over?
                         a.btn.btn-sm.returnHomeBtn(href='/', role='button') Return Home
