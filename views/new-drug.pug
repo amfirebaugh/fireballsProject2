@@ -10,41 +10,41 @@ block content
                 .col-md-2
                     img#rxIcon(src='/assets/RX_icon.png')
             // Welcome text/instruction row
-            .row.mb-4
+            .row.mb-2
                 .col-md-12
-                    p.lead To enter a medication combination start by selecting your email address from the &quot;Find You&quot; menu and then entering medication names in the text fields.
-                    br
-                    p Don&apos;t know how to spell a medication? Use our search bar below!
-            form.form-inline(method='POST', action='/api/drug')
-                .form-row.mb-5.mx-auto
-                    // User selects Email
-                    .dropdown.mr-5
-                        button#dropdownNDFindYouButton.btn.btn-lg.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Find You
+                    p.lead Select your email address, enter two medications, and click See Results. Spelling matters! Use our search bar below for help.
+            form
+                // User selects Email
+                .form-group.mb-4.text-center
+                    .dropdown.mr-4
+                        button#dropdownNDFindYouButton.btn.btn-lg.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Email Addresses
                         .dropdown-menu(aria-labelledby='dropdownNDFindYouButton')
-                            // id's are so we can grab them in JS file later if needed
-                            a#female.dropdown-item.rxSex(href='#') Female
-                            a#male.dropdown-item.rxSex(href='#') Male
+                            // insert anchor tag with classes: .dropdown-item and something for this group, give each unique one an ID, and href just #
+                .form-group.mb-4.text-center.clearfix
                     // User inputs Drug1
-                    label.sr-only(for='drug1') Drug 1
-                    input#drug1.form-control-lg.mr-4.align-middle(type='text', placeholder='Medication 1')
+                    .col-md-6.float-left
+                        label.sr-only(for='drug1') Drug 1
+                        input#drug1.form-control-lg(type='text', placeholder='Medication 1')
                     // User inputs Drug2
-                    label.sr-only(for='drug2') Drug 2
-                    input#drug2.form-control-lg.mr-5(type='text', placeholder='Medication 2')
-                    // Submit Btn
-                    a#newDrugComboSubmit.btn.userTypeBtn.btn-lg(href='/drug/interaction-results', role='button') Submit
+                    .col-md-6.float-right
+                        label.sr-only(for='drug2') Drug 2
+                        input#drug2.form-control-lg(type='text', placeholder='Medication 2')
+                // Submit Btn
+                .form-group.mb-2.clearfix
+                    a#newDrugComboSubmit.btn.float-right.userTypeBtn.btn-lg(href='/drug/interaction-results', role='button') See Results
             // Begin Drug Name Search for Spelling Section
             .row.mt-5
-                .col-md-6.text-center
-                    p Type in the first few letters of the medication you&apos;re trying to spell. Even just two letters is enough!
+                .col-md-12.text-center
+                    p Type in the first few letters of the medication you&apos;re trying to spell. Even just two letters is enough! Medications will appear below when you click Search.
                     form.form-inline(method='POST', action='/api/getDrug')
-                        .form-row.mb-5.mx-auto
-                        label.sr-only(for='drugSearch') Drug Search
-                        input#DrugNameField.form-control.mr-4.align-middle(name='DrugNameText', type='text', placeholder='Ex: lip')
-                        button#drugSearchSubmit.btn.userTypeBtn(type='submit') Search
-                #drugSearchResultsDiv.col-md-6.text-center
-                    p Results will appear below after you click Search:
+                        .form-row.mb-3.mx-auto
+                            label.sr-only(for='drugSearch') Drug Search
+                            input#drugSearch.form-control.mr-4.align-middle(type='text', placeholder='Ex: lip')
+                            button#drugSearchSubmit.btn.userTypeBtn(type='submit', value='Submit') Search
+            .row
+                #drugSearchResultsDiv.col-md-8.mx-auto.text-center.mb-4
+                    // insert the drug search results from API
             // Return Home Row -- need on all pages except Home
             .row.mt-3
                 .col-md-12.text-center
-                    p.d-inline.mr-2 Confused or need to start over?
                     a.btn.btn-sm.returnHomeBtn(href='/', role='button') Return Home
