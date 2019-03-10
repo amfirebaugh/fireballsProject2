@@ -12,34 +12,28 @@ block content
             // Welcome text/instruction row
             .row.mb-4
                 .col-md-12
-                    p.lead Select your email address with the &quot;Find You&quot; drop down menu. Then select your medication combination on the next drop down and click Submit to view the drug interaction information for this selection.
-                    br
-                    p If you cannot find your email address then please click &quot;Return Home&quot; and click &quot;New User&quot; to get started.
+                    p.lead First select your email address. Next select the medication combination. Then click to view the drug interaction information.
             .row.mb-5
                 // User selects Email
                 .dropdown.col-md-4.text-center
-                    button#dropdownEXUFindYouButton.btn.btn-lg.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Find You
+                    button#dropdownEXUFindYouButton.btn.btn-lg.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Email Addresses
                     .dropdown-menu(aria-labelledby='dropdownEXUFindYouButton')
-                        // id's are so we can grab them in JS file later if needed
-                        a#female.dropdown-item.rxSex(href='#') Female
-                        a#male.dropdown-item.rxSex(href='#') Male
+                        // insert anchor tag with classes: .dropdown-item and something for this group, give each unique one an ID, and href just #
                 // User Selects Drug Combo
                 .dropdown.col-md-4.text-center
                     button#dropdownFindMedsButton.btn.btn-lg.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Medications
                     .dropdown-menu(aria-labelledby='dropdownFindMedsButton')
-                        // id's are so we can grab them in JS file later if needed
-                        a#female.dropdown-item.rxSex(href='#') Female
-                        a#male.dropdown-item.rxSex(href='#') Male
+                        // insert anchor tag with classes: .dropdown-item and something for this group, give each unique one an ID, and href just #
                 // User clicks Submit
                 .col-md-4.text-center
                     a#EXUSearchSubmit.btn.userTypeBtn.btn-lg(href='/drug/interaction-results', role='button') Submit
             // Row in case existing user wants to go enter a new drug combo associated with their account
             .row.mb-5
-                .col-md-12.text-center
-                    p.lead.d-inline.mr-3 OR...Would you like to add a new medication combination to your account?
-                    a#EXUNewComboPage.btn.userTypeBtn.d-inline(href='/drug/new', role='button') Click Here
+                .col-md-12
+                    p.lead OR...Would you like to add a new medication combination to your account?
+                    .text-center
+                        a#EXUNewComboPage.btn.btn-lg.userTypeBtn(href='/drug/new', role='button') Enter A New Combo
             // Return Home Row -- need on all pages except Home
             .row
                 .col-md-12.text-center
-                    p.d-inline.mr-2 Confused or need to start over?
                     a.btn.btn-sm.d-inline.returnHomeBtn(href='/', role='button') Return Home
