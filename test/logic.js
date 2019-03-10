@@ -6,10 +6,11 @@ var drug1 = "ibuprofen";
 var drug2 = "zoloft";
 
 // This array is initialized as empty but will be filled in with the symptoms that are common to both the user's age and gender
-var symptoms = [];
+var mostLikelySymptoms = [];
+var otherPossibleSymptoms = [];
 
 // age and gender are hard-coded for testing purposes, but will also be extracted from forms just like drug1 and drug2
-var age = 60;
+var age = 28;
 var gender = "M";
 
 // Query URL
@@ -79,13 +80,40 @@ if (gender === "M") {
     genderKey = 'female';
 }
 
+var test;
+
+// Populates mostLikelySymptoms array
 axios.get(queryUrl).then(
     function(response) {
-        for (var i = 0; i < response.data.age_interaction[ageKey].length; i++) {
-            for (var j = 0; j < response.data.gender_interaction[genderKey].length; j++) {
-                if (response.data.age_interaction[ageKey][i] === response.data.gender_interaction[genderKey][j]) {
-                    symptoms.push(response.data.age_interaction[ageKey][i]);
+        test = response;
+        for (var i = 0; i < test.data.age_interaction[ageKey].length; i++) {
+            for (var j = 0; j < test.data.gender_interaction[genderKey].length; j++) {
+                if (test.data.age_interaction[ageKey][i] === test.data.gender_interaction[genderKey][j]) {
+                    mostLikelySymptoms.push(test.data.age_interaction[ageKey][i]);
                 }
             }
         }
+    }).then(
+    function() {
+        for (var i = 0; i < test.data.age_interaction[ageKey].length; i++) {
+            for (var j = 0; j < mostLikelySymptoms.length; j++) {
+                if (test.data.age_interaction[ageKey][i] !== mostLikelySymptoms[j]) {
+                    if (!otherPossibleSymptoms.includes(test.data.age_interaction[ageKey][i])) {
+                    otherPossibleSymptoms.push(test.data.age_interaction[ageKey][i]);
+                    }
+                }
+            }
+        }
+
+        for (var i = 0; i < test.data.gender_interaction[genderKey].length; i++) {
+            for (var j = 0; j < mostLikelySymptoms.length; j++) {
+                if (test.data.gender_interaction[genderKey][i] !== mostLikelySymptoms[j]) {
+                    if (!otherPossibleSymptoms.includes(test.data.gender_interaction[genderKey][i])) {
+                    otherPossibleSymptoms.push(test.data.gender_interaction[genderKey][i]);
+                    }
+                }
+            }
+        }
+        console.log(mostLikelySymptoms.length);
+        console.log(otherPossibleSymptoms.length);
     });
