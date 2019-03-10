@@ -13,13 +13,14 @@ block content
             .row.mb-2
                 .col-md-12
                     p.lead Select your email address, enter two medications, and click See Results. Spelling matters! Use our search bar below for help.
-            form
+            form(method='GET', action='/users')
                 // User selects Email
                 .form-group.mb-4.text-center
                     .dropdown.mr-4
                         button#dropdownNDFindYouButton.btn.btn-lg.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Email Addresses
                         .dropdown-menu(aria-labelledby='dropdownNDFindYouButton')
                             // insert anchor tag with classes: .dropdown-item and something for this group, give each unique one an ID, and href just #
+            form(method='POST', action='api/interaction')
                 .form-group.mb-4.text-center.clearfix
                     // User inputs Drug1
                     .col-md-6.float-left
@@ -31,7 +32,7 @@ block content
                         input#drug2.form-control-lg(type='text', placeholder='Medication 2')
                 // Submit Btn
                 .form-group.mb-2.clearfix
-                    a#newDrugComboSubmit.btn.float-right.userTypeBtn.btn-lg(href='/drug/interaction-results', role='button') See Results
+                    button#newDrugComboSubmit.btn.float-right.userTypeBtn.btn-lg(type='submit') See Results
             // Begin Drug Name Search for Spelling Section
             .row.mt-5
                 .col-md-12.text-center
@@ -40,7 +41,7 @@ block content
                         .form-row.mb-3.mx-auto
                             label.sr-only(for='drugSearch') Drug Search
                             input#drugSearch.form-control.mr-4.align-middle(type='text', placeholder='Ex: lip')
-                            button#drugSearchSubmit.btn.userTypeBtn(type='submit', value='Submit') Search
+                            button#drugSearchSubmit.btn.userTypeBtn(type='submit') Search
             .row
                 #drugSearchResultsDiv.col-md-8.mx-auto.text-center.mb-4
                     // insert the drug search results from API
