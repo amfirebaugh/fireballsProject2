@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    .container
+        #rxJumbo.jumbotron.mt-3
+            // Page Title and Icon Row -- keep for all pages
+            .row.mb-2
+                .col-md-10.align-self-end
+                    h1.display-3 InteRXact
+                .col-md-2
+                    img#rxIcon(src='/assets/RX_icon.png')
+            // Welcome text/instruction row
+            .row
+                .col-md-12
+                    p.lead Here are the most common drug interactions for your profile!
+            .row.mb-5
+                .col-md-8.text-center.mx-auto
+                    p.lead
+                        strong Interactions: 
+            .row.my-5
+                .col-md-12.text-center
+                    a.btn.btn-md.userTypeBtn.d-inline.mr-5(href='/drug/new', role='button') Add a New Combination
+                    a.btn.btn-md.returnNewDrugBtn.userTypeBtn(href='/users', role='button') View Another Combination
+            // Return Home Row -- need on all pages except Home
+            .row.mt-3
+                .col-md-12.text-center
+                    a.btn.btn-sm.returnHomeBtn(href='/', role='button') Return Home
