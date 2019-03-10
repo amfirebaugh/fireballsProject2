@@ -49,12 +49,12 @@ block content
                                     button#dropdownAgeButton.btn.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Select                          
                                     .dropdown-menu(aria-labelledby='dropdownAgeButton')
                                         // id's are so we can grab them in JS file later if needed
-                                        a#10.dropdown-item.rxAge(href='#') 10-19
-                                        a#20.dropdown-item.rxAge(href='#') 20-29
-                                        a#30.dropdown-item.rxAge(href='#') 30-39
-                                        a#40.dropdown-item.rxAge(href='#') 40-49 
-                                        a#50.dropdown-item.rxAge(href='#') 50-59
-                                        a#60.dropdown-item.rxAge(href='#') 60+                      
+                                        a#10.dropdown-item.rxAge 10-19
+                                        a#20.dropdown-item.rxAge 20-29
+                                        a#30.dropdown-item.rxAge 30-39
+                                        a#40.dropdown-item.rxAge 40-49 
+                                        a#50.dropdown-item.rxAge 50-59
+                                        a#60.dropdown-item.rxAge 60+                      
                                     span.rxHelp
                                         ion-icon#ageHelp(name='help')
                                 // Sex Dropdown (same form-row as Age)
@@ -63,15 +63,15 @@ block content
                                     button#dropdownSexButton.btn.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Select
                                     .dropdown-menu(aria-labelledby='dropdownSexButton')
                                         // id's are so we can grab them in JS file later if needed
-                                        a#female.dropdown-item.rxSex(href='#') Female
-                                        a#male.dropdown-item.rxSex(href='#') Male
+                                        a#female.dropdown-item.rxSex Female
+                                        a#male.dropdown-item.rxSex Male
                                     span.rxHelp
                                         ion-icon#sexHelp(name='help')
                             // Submit Button Row
                             .form-row
                                 .col-md-12
                                     .float-right
-                                        a#newUserSubmit.btn.userTypeBtn.btn-lg(href='/drug/new', role='button') Submit
+                                        button#newUserSubmit.btn.userTypeBtn.btn-lg(type='submit', value='Submit') Submit
             // Return Home Row -- need on all pages except Home
             .container
                 .row
