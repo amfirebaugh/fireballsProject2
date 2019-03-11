@@ -9,35 +9,93 @@ const express = require('express');
 // ===============================================================================
 
 module.exports = function(app) {
-    // API GET Requests
-    // Below code handles when users "visit" a page.
-    // In each of the below cases when a user visits a link
-    // ---------------------------------------------------------------------------
-  
-    app.get("/api/users", function(req, res) {
-      res.json(userData);
-    });
-  
-    app.get("/api/drug", function(req, res) {
-      res.json(drugData);
-    });
-  
-    // API POST Requests
-    // Below code handles when a user submits a form and thus submits data to the server.
-    // In each of the below cases, when a user submits form data (a JSON object)
-    // ...the JSON is pushed to the appropriate JavaScript array
-    // ---------------------------------------------------------------------------
-  
-    app.post("/api/users", function(req, res) {
-        userData.push(req.body);
-        res.json();
+    
+    // ==========================================================================
+    //  GET ROUTES
+    // ==========================================================================
+    
+    /* 'DRUG/NEW' PAGE & 'USERS' PAGE:  GET EMAIL FROM USERS TABLE FOR DROPDOWN  */
+    app.get("/users", function(req, res) {
+      db.User.findAll({
+        // this WORKS!
+        attributes : ['email']})
+        
+        .then( results => {
+        var emailArr = [];
+        // loop through and get emails for each user
+        for (var i = 0; i < results.length; i++) { 
+          for (key in results[i].dataValues) {
+            // pass to array
+           emailArr.push(results[i].dataValues[key]);
+          } // end inner for
+        } // end outer for
+
+        /**** WE NEED TO USE THE DATA IN THIS ARRAY TO POPULATE DROP DOWN ****/
+        console.log(emailArr);
+        /**** USE TEST.PUG TO SEND DATA TO BROWSER (AS TEST ONLY REPLACE WITH ALLIE'S PAGE) ****/
+        res.render('test', {emails: emailArr});
+      }); // end promise
+      
+    }); // end get users email
+
+    /*************************************************** */
+
+    /* 'USERS' PAGE: GET SAVED DRUGS FROM DB */
+    app.get("/savedDrugs", function(req, res){
+      var emailAddr = 'solo@falcon.com';
+      db.User.findAll({
+        // find all drugs associated with user
+        include: [ db.Drug ],
+        /**** THE VALUE FOR EMAIL MUST BE PASSED IN BY REFERENCE ****/
+        where: {email: emailAddr}})
+        
+        .then( results => {
+        var drugArr = [];
+        for (var i = 0; i < results.length; i++) { 
+          for (var j = 0; j < results[i].dataValues.Drugs.length; j++) {
+            for (key in results[i].dataValues.Drugs[j].dataValues) {
+              if (key.includes('drugname')){
+                  //console.log(results[i].dataValues.Drugs[j].dataValues[key]);
+                  // pass to array
+                  drugArr.push(results[i].dataValues.Drugs[j].dataValues[key]);
+              } // end if 
+            } // end inner for
+          } // end middle for
+          
+          /**** WE NEED TO USE THE DATA IN THIS ARRAY TO POPULATE THE MEDICATONS DROPDOWN ****/
+          console.log(drugArr);
+          /**** USE TEST.PUG TO SEND DATA TO BROWSER (AS TEST ONLY, REPLACE WITH ALLIES PAGE) ****/
+          res.render('test', {emails: drugArr});
+        } // end outer for
+      }); // end promise
+    }); // end get saved drugs
+
+    // ==========================================================================
+    // POST ROUTES
+    // ==========================================================================
+    
+    /* ADD NEW USER ROUTE */
+    app.post("/users/new", function(req, res) {
+        // insert new user into users table
     });
 
-    app.post("/api/drugs", function(req, res) {
-          drugData.push(req.body);
-          res.json();
+    /* API CALLS */
+    app.post("/api/getDrug", function(req, res) {
+          // api call to get drug name, return data to calling form
+          /**** ERIK'S CODE HERE ****/
     });
 
+    app.post("/api/interaction", function(req, res) {
+      // 1. save drug combo to db
+      // 2. api call to get drug interaction, return data to calling form
+      /**** ERIK'S CODE HERE ****/
+      
+  });
+
+  /*************************************************** */
+
+
+    /* TEST ROUTE FOR DRUG SEQUELIZE - APP DOES NOT USE THIS ROUTE */
     app.get("/db/test", function(req, res) { 
         res.send('testing db, see node console!')
 
