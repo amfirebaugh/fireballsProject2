@@ -4,6 +4,8 @@ var db = require("../models");
 // Require Express
 const express = require('express');
 
+var unirest = require('unirest');
+
 // ===============================================================================
 // ROUTING
 // ===============================================================================
@@ -13,6 +15,19 @@ module.exports = function(app) {
     // ==========================================================================
     //  GET ROUTES
     // ==========================================================================
+
+    /* HOME ROUTE */
+    app.get("/", function(req, res) {
+      res.render('home');
+    });
+    
+    app.get("/users/new", function(req, res) {
+      res.render('new-user');
+    });
+
+    app.get("/drug/new", function(req, res) {
+      res.render("new-drug");
+    });
     
     /* 'DRUG/NEW' PAGE & 'USERS' PAGE:  GET EMAIL FROM USERS TABLE FOR DROPDOWN  */
     app.get("/users", function(req, res) {
@@ -35,13 +50,12 @@ module.exports = function(app) {
         /**** USE TEST.PUG TO SEND DATA TO BROWSER (AS TEST ONLY REPLACE WITH ALLIE'S PAGE) ****/
         res.render('test', {emails: emailArr});
       }); // end promise
-      
     }); // end get users email
 
     /*************************************************** */
 
     /* 'USERS' PAGE: GET SAVED DRUGS FROM DB */
-    app.get("/savedDrugs", function(req, res){
+    app.get("/savedDrugs/:user", function(req, res){
       var emailAddr = 'solo@falcon.com';
       db.User.findAll({
         // find all drugs associated with user
@@ -75,14 +89,29 @@ module.exports = function(app) {
     // ==========================================================================
     
     /* ADD NEW USER ROUTE */
+    // use body-parser via express to access form data
     app.post("/users/new", function(req, res) {
-        // insert new user into users table
-    });
+        
+        // insert new user into Users table
+        db.User.create({email: req.body.userEmail, firstname: req.body.userFirstName, lastname: req.body.userLastName, age: req.body.userAge, sex: req.body.userSex}).then(function(){
+          // redirect to next page in the flow
+          res.redirect("/drug/new");
+        });    
+      });
+
+
 
     /* API CALLS */
     app.post("/api/getDrug", function(req, res) {
           // api call to get drug name, return data to calling form
-          /**** ERIK'S CODE HERE ****/
+          
+          unirest.get("https://iterar-mapi-us.p.rapidapi.com/api/autocomplete?query="+req.body.searchString)
+          .header("X-RapidAPI-Key", "0xAyFD96WlmshBNnpLcUfgSrWzCvp15QZAnjsnwA8grd2AfWRB")
+          .end(function (result) {
+            console.log(result.body);
+            //*** SPITS THE RAW OBJECT OUT ON SCREEN WE NEED TO CLEAN THIS UP ***/
+            res.render('new-drug',{drugnames : JSON.stringify(result.body)});
+          });
     });
 
     app.post("/api/interaction", function(req, res) {
