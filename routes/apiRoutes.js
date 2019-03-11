@@ -99,20 +99,18 @@ module.exports = function(app) {
         });    
       });
 
-
-
     /* API CALLS */
     app.post("/api/getDrug", function(req, res) {
           // api call to get drug name, return data to calling form
-          
-          unirest.get("https://iterar-mapi-us.p.rapidapi.com/api/autocomplete?query="+req.body.searchString)
-          .header("X-RapidAPI-Key", "0xAyFD96WlmshBNnpLcUfgSrWzCvp15QZAnjsnwA8grd2AfWRB")
-          .end(function (result) {
-            console.log(result.body);
-            //*** SPITS THE RAW OBJECT OUT ON SCREEN WE NEED TO CLEAN THIS UP ***/
-            res.render('new-drug',{drugnames : JSON.stringify(result.body)});
+          var results1;
+          unirest.get("https://iterar-mapi-us.p.rapidapi.com/api/autocomplete?query="+req.body.searchString1).header("X-RapidAPI-Key", "0xAyFD96WlmshBNnpLcUfgSrWzCvp15QZAnjsnwA8grd2AfWRB").end(function (results) {
+              //results1 = JSON.stringify(results.body);
+              for (var i = 0; i < results.body.suggestions.length; i++) {
+                results1 += results.body.suggestions[i] + ' || '
+            }
+              res.render('new-drug',{drugnames1 : results1})
           });
-    });
+    }); 
 
     app.post("/api/interaction", function(req, res) {
       // 1. save drug combo to db

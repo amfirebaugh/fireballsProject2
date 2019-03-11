@@ -41,14 +41,17 @@ block content
                         .form-row.mb-3.mx-auto
                             label.sr-only(for='drugSearch') Drug Search
                             // DARRENS CHANGE
-                            input#drugSearch.mr-4.align-middle.form-control(name='searchString', type='text', placeholder='Ex: lip')
+                            input#drugSearch.mr-4.align-middle.form-control(name='searchString1', type='text', placeholder='Ex: lip')
+                            // DARRENS CHANGE
+                            input#drugSearch.mr-4.align-middle.form-control(name='searchString2', type='text', placeholder='Ex: lip')
                             // DARRENS CHANGE
                             input.btn.btn-warning(type='submit', value='Search')
             .row
                 #drugSearchResultsDiv.col-md-8.mx-auto.text-center.mb-4
                     // insert the drug search results from API
                     // DARRENS CHANGE
-                    p= drugnames
+                    p= drugnames1
+                    p= drugnames2
             // Return Home Row -- need on all pages except Home
             .row.mt-3
                 .col-md-12.text-center
