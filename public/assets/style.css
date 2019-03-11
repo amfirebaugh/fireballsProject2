@@ -17,6 +17,10 @@ body {
     color: #00A88F;
 }
 
+#rxDisclaimer {
+    color: #00485E;
+}
+
 /* all pages except home */
 
 .returnHomeBtn {
