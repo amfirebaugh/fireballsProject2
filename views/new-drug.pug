@@ -24,24 +24,29 @@ block content
                         // RETURN EMAILS IN SELECT LIST
                         select#emailReturn(name='userEmailSelect', type='text')
                             option(value='') Select
-            form(method='POST', action='api/interaction')
+            // DARREN'S EDIT
+            form
                 .form-group.mb-4.text-center.clearfix
                     // User inputs Drug1
                     .col-md-6.float-left
                         label.sr-only(for='drug1') Drug 1
-                        input#drug1.form-control-lg(type='text', placeholder='Medication 1')
+                        // DARREN'S EDIT
+                        input#drug1.form-control-lg(name='drug1', type='text', placeholder='Medication 1')
                     // User inputs Drug2
                     .col-md-6.float-right
                         label.sr-only(for='drug2') Drug 2
-                        input#drug2.form-control-lg(type='text', placeholder='Medication 2')
+                        // DARREN'S EDIT
+                        input#drug2.form-control-lg(name='drug2', type='text', placeholder='Medication 2')
                 // Submit Btn
                 .form-group.mb-2.clearfix
-                    button#newDrugComboSubmit.btn.float-right.userTypeBtn.btn-lg(type='submit') See Results
+                    // DARREN'S EDIT
+                    input#newDrugComboSubmit.btn.float-right.userTypeBtn.btn-lg(type='submit', value='See Results')
             // Begin Drug Name Search for Spelling Section
             .row.mt-5
                 .col-md-12.text-center
                     p Type in the first few letters of the medication you&apos;re trying to spell. Even just two letters is enough! Medications will appear below when you click Search.
-                    form.form-inline(method='POST', action='/api/getDrug')
+                    // DARREN'S EDIT
+                    form.form-inline
                         .form-row.mb-3.mx-auto
                             label.sr-only(for='drugSearch') Drug Search
                             // DARRENS CHANGE
@@ -51,7 +56,7 @@ block content
             .row
                 #drugSearchResultsDiv.col-md-8.mx-auto.text-center.mb-4
                     // INSERT RESULTS FROM DRUG NAME API
-                    // DARRENS CHANGE
+                    // DARREN'S EDIT
                     div#drugReturnList
             // Return Home Row -- need on all pages except Home
             .row.mt-3

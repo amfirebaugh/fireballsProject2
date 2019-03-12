@@ -53,16 +53,35 @@ $(document).ready(function() {
         $.post("/api/getDrug", drugName)
             // recieve data back to page
              .then(function(data) {
-             if (data) {
-                console.log(data);
-                // construct data paragraph and append to page
-                 var drugs = $('<p>');
-                 drugs.text(data);
-                 $("#drugReturnList").append(drugs);
-            }
-         });
+                if (data) {
+                    console.log(data);
+                    // construct data paragraph and append to page
+                    var drugs = $('<p>');
+                    drugs.text(data);
+                    $("#drugReturnList").append(drugs);
+                }
+            });
     });
 
+    // drug interactions API search
+    $('#newDrugComboSubmit').on('click', (event) => {
+        event.preventDefault()
+        // create object so api can recieve req.body, object will also be used to insert into drugs db
+        var drugInterActions = {
+                name1: $('#drug1').val().trim(),
+                name2: $('#drug2').val().trim(),
+                email: $('#emailReturn').val().trim()
+            };
 
+        console.log(drugInterActions);
+        // send object to api.  POST requires promise
+        $.post("/api/interaction", drugInterActions)
+            // recieve data back to page
+            .then(function(data) {
+                if(data) {
+                    console.log(data)
+                }
+            });
+    });
 
 });

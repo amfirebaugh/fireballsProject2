@@ -4,6 +4,7 @@ var db = require("../models");
 // Require Express
 const express = require('express');
 const unirest = require('unirest');
+const axios = require('axios');
 
 // ===============================================================================
 // ROUTING
@@ -44,11 +45,8 @@ module.exports = function(app) {
           } // end inner for
         } // end outer for
 
-        /**** WE NEED TO USE THE DATA IN THIS ARRAY TO POPULATE DROP DOWN ****/
-        console.log(emailArr);
-        /**** USE TEST.PUG TO SEND DATA TO BROWSER (AS TEST ONLY REPLACE WITH ALLIE'S PAGE) ****/
-        // res.render('test', {emails: emailArr});
-        // do not render page, send back json object
+        // console.log(emailArr);
+        // send back to page in order to render email drop down
         res.json(emailArr);
       }); // end promise
     }); // end get users email
@@ -56,7 +54,7 @@ module.exports = function(app) {
     /*************************************************** */
 
     /* 'USERS' PAGE: GET SAVED DRUGS FROM DB */
-    app.get("/savedDrugs/:user", function(req, res){
+    app.get("/savedDrugs", function(req, res){
       var emailAddr = 'solo@falcon.com';
       db.User.findAll({
         // find all drugs associated with user
@@ -119,6 +117,7 @@ module.exports = function(app) {
       // 1. save drug combo to db
       // 2. api call to get drug interaction, return data to calling form
       /**** ERIK'S CODE HERE ****/
+      console.log('in api interaction', req.body);
       
   });
 
@@ -131,7 +130,6 @@ module.exports = function(app) {
 
         // *** VIA USERS TABLE, FIND ALL DRUGS FOR USER WHERE EMAIL ... **/
         db.User.findAll({
-        // this WORKS!
         // find all drugs associated with user
         include: [ db.Drug ],
         // this where points to User
