@@ -4,6 +4,7 @@ var db = require("../models");
 // Require Express
 const express = require('express');
 const unirest = require('unirest');
+const axios = require('axios');
 
 // ===============================================================================
 // ROUTING
@@ -44,17 +45,16 @@ module.exports = function(app) {
           } // end inner for
         } // end outer for
 
-        /**** WE NEED TO USE THE DATA IN THIS ARRAY TO POPULATE DROP DOWN ****/
-        console.log(emailArr);
-        /**** USE TEST.PUG TO SEND DATA TO BROWSER (AS TEST ONLY REPLACE WITH ALLIE'S PAGE) ****/
-        res.render('test', {emails: emailArr});
+        // console.log(emailArr);
+        // send back to page in order to render email drop down
+        res.json(emailArr);
       }); // end promise
     }); // end get users email
 
     /*************************************************** */
 
     /* 'USERS' PAGE: GET SAVED DRUGS FROM DB */
-    app.get("/savedDrugs/:user", function(req, res){
+    app.get("/savedDrugs", function(req, res){
       var emailAddr = 'solo@falcon.com';
       db.User.findAll({
         // find all drugs associated with user
@@ -100,25 +100,44 @@ module.exports = function(app) {
 
     /* API CALLS */
     app.post("/api/getDrug", function(req, res) {
-          // api call to get drug name, return data to calling form
-          var results1;
-          unirest.get("https://iterar-mapi-us.p.rapidapi.com/api/autocomplete?query="+req.body.searchString1).header("X-RapidAPI-Key", "0xAyFD96WlmshBNnpLcUfgSrWzCvp15QZAnjsnwA8grd2AfWRB").end(function (results) {
+          //console.log(req.body.name);
+          // api call to get drug name, pass in req.body object (specifically the value of 'name' key) into API call
+           var results1 = '';
+           unirest.get("https://iterar-mapi-us.p.rapidapi.com/api/autocomplete?query="+req.body.name).header("X-RapidAPI-Key", "0xAyFD96WlmshBNnpLcUfgSrWzCvp15QZAnjsnwA8grd2AfWRB").end(function (results) {
               //results1 = JSON.stringify(results.body);
               for (var i = 0; i < results.body.suggestions.length; i++) {
-                results1 += results.body.suggestions[i] + ' || '
-            }
-              res.render('new-drug',{drugnames1 : results1})
+                  results1 += results.body.suggestions[i] + ' || '
+              }
+              // send result back to new drug page
+              res.send(results1);
           });
     }); 
 
     app.post("/api/interaction", function(req, res) {
-      // 1. save drug combo to db
-      // 2. api call to get drug interaction, return data to calling form
-      /**** ERIK'S CODE HERE ****/
-      
+      // save drug combo to db
+      // sequelize does not need to have an explicit join as does SQL.  Tested with invalid email and constraint was enforced.
+      db.Drug.create({drugname1: req.body.name1, drugname2: req.body.name2, UserEmail:req.body.email});
+      // api call to get drug interaction, return data to calling form
+      console.log('in api interaction', req.body);
+      var queryUrl = "https://www.ehealthme.com/api/v1/drug-interaction/" + req.body.name1 + "/" + req.body.name2 + "/";
+      axios.get(queryUrl).then(
+        function(response) {
+        try {
+          // response tested as functional using 'zoloft' and 'acetaminophen'
+          /**** ERIK'S CODE HERE ****/
+          console.log(response);
+        }
+          catch(err) {
+            console.log(err);
+          }
+        });
   });
 
-  /*************************************************** */
+  // ==========================================================================
+  // TEST ROUTE UNUSED BY APP
+  // ==========================================================================
+  
+  
 
 
     /* TEST ROUTE FOR DRUG SEQUELIZE - APP DOES NOT USE THIS ROUTE */
@@ -127,7 +146,6 @@ module.exports = function(app) {
 
         // *** VIA USERS TABLE, FIND ALL DRUGS FOR USER WHERE EMAIL ... **/
         db.User.findAll({
-        // this WORKS!
         // find all drugs associated with user
         include: [ db.Drug ],
         // this where points to User
