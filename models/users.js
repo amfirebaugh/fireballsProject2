@@ -25,7 +25,8 @@
     },
     sex: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
+      /*
       // custom validate for 'f' or 'm'
       validate: {
         startsWith:function(bodyVal) {
@@ -34,7 +35,7 @@
             throw new Error("First character of body must be upper");
           }    
         }
-      }
+      }*/
     },
     email: {
       type: DataTypes.STRING,

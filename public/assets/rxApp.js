@@ -1,12 +1,16 @@
 $(document).ready(function() {
 
-    // for new-user.pug dropdown menus
-    $('.rxAge').on('click', function() {
-        $('.btn#dropdownAgeButton').text($(this).text());
-    });
+// event bubbling: listening on parent 
+$('#userAge').on('click', (event) => { 
+    event.preventDefault();
+    var userAge1 = $( "#userAge" ).val();
+    console.log(userAge1);
+    }); 
 
-    $('.rxSex').on('click', function() {
-        $('.btn#dropdownSexButton').text($(this).text());
-    });
-
+// event bubbling: listening on parent 
+$('#userSex').on('click', (event) => { 
+    event.preventDefault();
+    var userSex1 = $( "#userSex" ).val();
+    console.log(userSex1);
+    }); 
 });

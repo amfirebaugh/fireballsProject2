@@ -15,11 +15,13 @@ block content
                     p.lead Fill out the form below to initialize your account. You can then begin entering your drug combinations that will save to your account!                   
                 br                   
                 p If you have any questions click the 
+                ion-icon#questIcon(name='help')
+                |  icon next to each input for more information.    
+
+                p.lead Fill out this quick form and click Submit to initialize your account. Then you&apos;ll automatically see the page where you can enter drug combinations that will save to your account!                   
+                br                   
+                p If you have any questions click the 
                 ion-icon#questIcon(name='help') icon next to each input for more information.
-                    p.lead Fill out this quick form and click Submit to initialize your account. Then you&apos;ll automatically see the page where you can enter drug combinations that will save to your account!
-                    br                   
-                    p If you have any questions click the 
-                        ion-icon#questIcon(name='help') icon next to each input for more information.    
             // nested container for the form
             .container.mt-5
                 .row.mb-5
@@ -29,51 +31,54 @@ block content
                             .form-group
                                 label.lead.mr-2(for='fName') First Name: 
                                     span.rxHelp
-                                        ion-icon#firstNameHelp(name='help') 
-                                input#firstName.mr-4.form-control(type='text', placeholder='John')
+                                        ion-icon#firstNameHelp(name='help')
+                                //DARRENS CHANGE 
+                                input#firstName.mr-4.form-control(name='userFirstName', type='text', placeholder='John')
                             // Last Name Input Field
                             .form-group
                                 label.lead.mr-2(for='lName') Last Name: 
                                     span.rxHelp
-                                        ion-icon#lastNameHelp(name='help')        
-                                input#lastName.mr-4.form-control(type='text', placeholder='Doe')
+                                        ion-icon#lastNameHelp(name='help') 
+                                //DARRENS CHANGE       
+                                input#lastName.mr-4.form-control(name='userLastName', type='text', placeholder='Doe')
                             // Email Input Field
                             .form-group
                                 label.lead.mr-2(for='email') Email address: 
                                     span.rxHelp
-                                        ion-icon#emailHelp(name='help')                   
-                                input#emailKey.form-control(type='email', placeholder='john.doe@email.com')
+                                        ion-icon#emailHelp(name='help')
+                                //DARRENS CHANGE                 
+                                input#emailKey.form-control(name='userEmail', type='email', placeholder='john.doe@email.com')
                             // Age and Sex Dropdown Row so they're inline
                             .form-row
                                 // Age Dropdown
                                 .dropdown.mr-4
-                                    label.lead.mr-2(for='age') Age: 
-                                    button#dropdownAgeButton.btn.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Select
-                                    .dropdown-menu(aria-labelledby='dropdownAgeButton')
-                                        // id's are so we can grab them in JS file later if needed
-                                        a#10.dropdown-item.rxAge 10-19
-                                        a#20.dropdown-item.rxAge 20-29
-                                        a#30.dropdown-item.rxAge 30-39
-                                        a#40.dropdown-item.rxAge 40-49 
-                                        a#50.dropdown-item.rxAge 50-59
-                                        a#60.dropdown-item.rxAge 60+                      
-                                    span.rxHelp
-                                        ion-icon#ageHelp(name='help')
+
+                                    //DARRENS CHANGE
+                                    label.lead.mr-2.pb-3(for='age') Age:
+                                        select#userAge.form-control(name='userAge', type='text')
+                                            option.rxAge(value='')
+                                            option.rxAge(value='10-19') 10-19
+                                            option.rxAge(value='20-29') 20-29
+                                            option.rxAge(value='30-39') 30-39
+                                            option.rxAge(value='30-39') 40-49
+                                            option.rxAge(value='50-59') 50-59
+                                            option.rxAge(value='60+') 60+ 
+                        
                                 // Sex Dropdown (same form-row as Age)
                                 .dropdown
-                                    label.lead.mr-2(for='sex') Sex: 
-                                    button#dropdownSexButton.btn.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Select
-                                    .dropdown-menu(aria-labelledby='dropdownSexButton')
-                                        // id's are so we can grab them in JS file later if needed
-                                        a#female.dropdown-item.rxSex Female
-                                        a#male.dropdown-item.rxSex Male
-                                    span.rxHelp
-                                        ion-icon#sexHelp(name='help')
+                                    //DARRENS CHANGE
+                                    label.lead.mr-2.pb-3(for='sex') Sex: 
+                                        select#userSex.form-control(name='userSex', type='text')
+                                            option.rxSex(value='')
+                                            option.rxSex(value='male') Male
+                                            option.rxSex(value='female') female
+                    
                             // Submit Button Row
                             .form-row
                                 .col-md-12
                                     .float-right
-                                        button#newUserSubmit.btn.userTypeBtn.btn-lg(type='submit') Submit
+                                        //DARRENS CHANGE
+                                        input.btn.btn-warning(type='submit', value='Submit')
             // Return Home Row -- need on all pages except Home
             .container
                 .row
