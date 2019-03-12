@@ -14,13 +14,17 @@ block content
                 .col-md-12
                     p.lead Here are the most common drug interactions for your profile!
             .row.mb-5
-                .col-md-8.text-center.mx-auto
+                .col-md-5.text-center.mx-auto
                     p.lead
-                        strong Interactions: 
+                        strong Most Common Interactions: 
+                    p#resultsMostCommon
+                .col-md-7.text-center.mx-auto
+                    p.lead
+                        strong Other Interactions: 
+                    p#resultsOther
             .row.my-5
                 .col-md-12.text-center
-                    a.btn.btn-md.userTypeBtn.d-inline.mr-5(href='/drug/new', role='button') Add a New Combination
-                    a.btn.btn-md.returnNewDrugBtn.userTypeBtn(href='/users', role='button') View Another Combination
+                    button.btn.btn-md.userTypeBtn(href='/drug/new', role='button') Return to Try Another Medication Combination.
             // Return Home Row -- need on all pages except Home
             .row.mt-3
                 .col-md-12.text-center
