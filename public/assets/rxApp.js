@@ -38,7 +38,30 @@ $(document).ready(function() {
             }
         });
     });
-    
+
+
+    // call to drug search API for drug names
+    $('#drugSearchBtn').on('click', (event) => {
+        console.log('clicked');
+        event.preventDefault();
+
+        // create object so api can recieve req.body
+        var drugName = {name: $('#drugSearch').val().trim()};
+
+        console.log(drugName);
+        // send object to api.  POST requires promise
+        $.post("/api/getDrug", drugName)
+            // recieve data back to page
+             .then(function(data) {
+             if (data) {
+                console.log(data);
+                // construct data paragraph and append to page
+                 var drugs = $('<p>');
+                 drugs.text(data);
+                 $("#drugReturnList").append(drugs);
+            }
+         });
+    });
 
 
 
