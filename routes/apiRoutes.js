@@ -3,8 +3,7 @@ var db = require("../models");
 
 // Require Express
 const express = require('express');
-
-var unirest = require('unirest');
+const unirest = require('unirest');
 
 // ===============================================================================
 // ROUTING
