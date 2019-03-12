@@ -17,7 +17,7 @@ module.exports = function(app) {
     // ==========================================================================
 
     /* HOME ROUTE */
-    app.get("/home", function(req, res) {
+    app.get("/", function(req, res) {
       res.render('home');
     });
     
@@ -131,10 +131,6 @@ module.exports = function(app) {
             console.log(err);
           }
         });
-  });
-
-  app.get('*', function(req, res) {
-    res.render('404');
   });
 
   // ==========================================================================
