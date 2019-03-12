@@ -13,17 +13,13 @@ block content
             .row.mb-2
                 .col-md-12
                     p.lead Select your email address, enter two medications, and click See Results. Spelling matters! Use our search bar below for help.
-            //form(method='GET', action='/users')
-            form
+            form(method='GET', action='/users')
                 // User selects Email
                 .form-group.mb-4.text-center
                     .dropdown.mr-4
-                        // DARREN'S EDIT
-                        input#dropdownNDFindYouButton.btn.btn-warning(type='submit', value='Email Addresses')
-                        br
-                        select#emailReturn
-                            option(value='') Select
-                        // insert anchor tag with classes: .dropdown-item and something for this group, give each unique one an ID, and NO HREF
+                        button#dropdownNDFindYouButton.btn.btn-lg.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Email Addresses
+                        .dropdown-menu(aria-labelledby='dropdownNDFindYouButton')
+                            // insert anchor tag with classes: .dropdown-item and something for this group, give each unique one an ID, and NO HREF
             form(method='POST', action='api/interaction')
                 .form-group.mb-4.text-center.clearfix
                     // User inputs Drug1

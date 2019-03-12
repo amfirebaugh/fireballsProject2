@@ -47,9 +47,7 @@ module.exports = function(app) {
         /**** WE NEED TO USE THE DATA IN THIS ARRAY TO POPULATE DROP DOWN ****/
         console.log(emailArr);
         /**** USE TEST.PUG TO SEND DATA TO BROWSER (AS TEST ONLY REPLACE WITH ALLIE'S PAGE) ****/
-        // res.render('test', {emails: emailArr});
-        // do not render page, send back json object
-        res.json(emailArr);
+        res.render('test', {emails: emailArr});
       }); // end promise
     }); // end get users email
 
