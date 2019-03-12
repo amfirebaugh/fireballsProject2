@@ -114,14 +114,30 @@ module.exports = function(app) {
     }); 
 
     app.post("/api/interaction", function(req, res) {
-      // 1. save drug combo to db
-      // 2. api call to get drug interaction, return data to calling form
-      /**** ERIK'S CODE HERE ****/
+      // save drug combo to db
+      // sequelize does not need to have an explicit join as does SQL.  Tested with invalid email and constraint was enforced.
+      db.Drug.create({drugname1: req.body.name1, drugname2: req.body.name2, UserEmail:req.body.email});
+      // api call to get drug interaction, return data to calling form
       console.log('in api interaction', req.body);
-      
+      var queryUrl = "https://www.ehealthme.com/api/v1/drug-interaction/" + req.body.name1 + "/" + req.body.name2 + "/";
+      axios.get(queryUrl).then(
+        function(response) {
+        try {
+          // response tested as functional using 'zoloft' and 'acetaminophen'
+          /**** ERIK'S CODE HERE ****/
+          console.log(response);
+        }
+          catch(err) {
+            console.log(err);
+          }
+        });
   });
 
-  /*************************************************** */
+  // ==========================================================================
+  // TEST ROUTE UNUSED BY APP
+  // ==========================================================================
+  
+  
 
 
     /* TEST ROUTE FOR DRUG SEQUELIZE - APP DOES NOT USE THIS ROUTE */
