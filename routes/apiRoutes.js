@@ -17,7 +17,7 @@ module.exports = function(app) {
     // ==========================================================================
 
     /* HOME ROUTE */
-    app.get("/home", function(req, res) {
+    app.get("/index", function(req, res) {
       res.render('home');
     });
     
