@@ -44,6 +44,9 @@ $(document).ready(function() {
         console.log('clicked');
         event.preventDefault();
 
+        // remove any prior drug interaction searches
+        $("#drugInteractionsReturn").empty();
+
         // create object so api can recieve req.body
         var drugName = {name: $('#drugSearch').val().trim()};
 
@@ -66,7 +69,7 @@ $(document).ready(function() {
     $('#newDrugComboSubmit').on('click', (event) => {
         event.preventDefault()
         // remove any drug name values from page on search submit
-        $("#drugReturnList").remove();
+        $("#drugReturnList").empty();
         // empty any prior search results
         $("#drugInteractionsReturn").empty();
         // create object so api can recieve req.body, object will also be used to insert into drugs db
