@@ -67,6 +67,8 @@ $(document).ready(function() {
         event.preventDefault()
         // remove any drug name values from page on search submit
         $("#drugReturnList").remove();
+        // empty any prior search results
+        $("#drugInteractionsReturn").empty();
         // create object so api can recieve req.body, object will also be used to insert into drugs db
         var drugInterActions = {
                 name1: $('#drug1').val().trim(),
@@ -83,13 +85,17 @@ $(document).ready(function() {
                 console.log(typeof(data));
                 if(data === '500 Error') {
                     // if empty response from API due to no interaction data
-                    var header = $('<p>');
-                    header.text('THERE IS NO INTERACTION DATA FOR THAT DRUG COMBINATION. TAKE PLENTY!')
-                    $("#drugInteractionsReturn").append(header);
+                    var header1 = $('<p>');
+                    var header2 = $('<p>');
+                    header1.text('** THERE IS NO INTERACTION DATA FOR THAT DRUG COMBINATION.**')
+                    header2.text('** PLEASE CONSULT YOUR PHYSICIAN BEFORE TAKING.**')
+                    $("#drugInteractionsReturn").append(header1);
+                    $("#drugInteractionsReturn").append(header2);
+
                 
                 } else {
-                    
-                    //console.log(data);
+                    // remove prior results
+                    console.log("in else block");
                     // add interaction data to page
                     var header = $('<p>');
                     var interactions = $('<p>');
