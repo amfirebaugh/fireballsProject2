@@ -1,14 +1,6 @@
 
 $(document).ready(function() {
 
-    // This array is initialized as empty but will be filled in with the symptoms that are common to both the user's age and gender
-    var mostLikelySymptoms = [];
-    var otherPossibleSymptoms = [];
-
-    // Initialize Keys
-    var ageKey;
-    var genderKey;
-
     // We may not need these event bubblers but here they are and they work
     // event bubbling: listening on parent 
     $('#userAge').on('click', (event) => { 
@@ -73,6 +65,10 @@ $(document).ready(function() {
     // drug interactions API search
     $('#newDrugComboSubmit').on('click', (event) => {
         event.preventDefault()
+        // remove any drug name values from page on search submit
+        $("#drugReturnList").remove();
+        // empty any prior search results
+        $("#drugInteractionsReturn").empty();
         // create object so api can recieve req.body, object will also be used to insert into drugs db
         var drugInterActions = {
                 name1: $('#drug1').val().trim(),
@@ -84,40 +80,38 @@ $(document).ready(function() {
         // send object to api.  POST requires promise
         $.post("/api/interaction", drugInterActions)
             // recieve data back to page
-            .then(function(response) {
-                if(response) {
-                    console.log(response)
-                    test = response;
-                    for (var i = 0; i < test.data.age_interaction[ageKey].length; i++) {
-                        for (var j = 0; j < test.data.gender_interaction[genderKey].length; j++) {
-                            if (test.data.age_interaction[ageKey][i] === test.data.gender_interaction[genderKey][j]) {
-                                mostLikelySymptoms.push(test.data.age_interaction[ageKey][i]);
-                            }
-                        }
-                    }
+            .then(function(data) {
+                console.log(data);
+                console.log(typeof(data));
+                if(data === '500 Error') {
+                    // if empty response from API due to no interaction data
+                    var header1 = $('<p>');
+                    var header2 = $('<p>');
+                    header1.text('** THERE IS NO INTERACTION DATA FOR THAT DRUG COMBINATION.**')
+                    header2.text('** PLEASE CONSULT YOUR PHYSICIAN BEFORE TAKING.**')
+                    $("#drugInteractionsReturn").append(header1);
+                    $("#drugInteractionsReturn").append(header2);
+
+                
+                } else {
+                    // remove prior results
+                    console.log("in else block");
+                    // add interaction data to page
+                    var header = $('<p>');
+                    var interactions = $('<p>');
+                    header.text('MOST LIKELY INTERACTIONS FOR YOUR AGE:')
+                    interactions.text(data[0]);
+                    $("#drugInteractionsReturn").append(header);
+                    $("#drugInteractionsReturn").append(interactions);
+                
+                    var header = $('<p>');
+                    var interactions = $('<p>');
+                    header.text('ALL POSSIBLE INTERACTIONS FOR YOUR AGE:')
+                    interactions.text(data[1]);
+                    $("#drugInteractionsReturn").append(header);
+                    $("#drugInteractionsReturn").append(interactions);
                 }
-                }).then(
-                function() {
-                    for (var i = 0; i < test.data.age_interaction[ageKey].length; i++) {
-                        for (var j = 0; j < mostLikelySymptoms.length; j++) {
-                            if (test.data.age_interaction[ageKey][i] !== mostLikelySymptoms[j]) {
-                                if (!otherPossibleSymptoms.includes(test.data.age_interaction[ageKey][i])) {
-                                otherPossibleSymptoms.push(test.data.age_interaction[ageKey][i]);
-                                }
-                            }
-                        }
-                    }
-
-                    for (var i = 0; i < test.data.gender_interaction[genderKey].length; i++) {
-                        for (var j = 0; j < mostLikelySymptoms.length; j++) {
-                            if (test.data.gender_interaction[genderKey][i] !== mostLikelySymptoms[j]) {
-                                if (!otherPossibleSymptoms.includes(test.data.gender_interaction[genderKey][i])) {
-                                otherPossibleSymptoms.push(test.data.gender_interaction[genderKey][i]);
-                                }
-                            }
-                        }
-                    }
-                });
+            });
     });
-
 });
+
