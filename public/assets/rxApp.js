@@ -1,6 +1,13 @@
 
 $(document).ready(function() {
 
+    // This array is initialized as empty but will be filled in with the symptoms that are common to both the user's age and gender
+    var mostLikelySymptoms = [];
+    var otherPossibleSymptoms = [];
+
+    // Initialize Keys
+    var ageKey;
+    var genderKey;
 
     // We may not need these event bubblers but here they are and they work
     // event bubbling: listening on parent 
@@ -77,11 +84,40 @@ $(document).ready(function() {
         // send object to api.  POST requires promise
         $.post("/api/interaction", drugInterActions)
             // recieve data back to page
-            .then(function(data) {
-                if(data) {
-                    console.log(data)
+            .then(function(response) {
+                if(response) {
+                    console.log(response)
+                    test = response;
+                    for (var i = 0; i < test.data.age_interaction[ageKey].length; i++) {
+                        for (var j = 0; j < test.data.gender_interaction[genderKey].length; j++) {
+                            if (test.data.age_interaction[ageKey][i] === test.data.gender_interaction[genderKey][j]) {
+                                mostLikelySymptoms.push(test.data.age_interaction[ageKey][i]);
+                            }
+                        }
+                    }
                 }
-            });
+                }).then(
+                function() {
+                    for (var i = 0; i < test.data.age_interaction[ageKey].length; i++) {
+                        for (var j = 0; j < mostLikelySymptoms.length; j++) {
+                            if (test.data.age_interaction[ageKey][i] !== mostLikelySymptoms[j]) {
+                                if (!otherPossibleSymptoms.includes(test.data.age_interaction[ageKey][i])) {
+                                otherPossibleSymptoms.push(test.data.age_interaction[ageKey][i]);
+                                }
+                            }
+                        }
+                    }
+
+                    for (var i = 0; i < test.data.gender_interaction[genderKey].length; i++) {
+                        for (var j = 0; j < mostLikelySymptoms.length; j++) {
+                            if (test.data.gender_interaction[genderKey][i] !== mostLikelySymptoms[j]) {
+                                if (!otherPossibleSymptoms.includes(test.data.gender_interaction[genderKey][i])) {
+                                otherPossibleSymptoms.push(test.data.gender_interaction[genderKey][i]);
+                                }
+                            }
+                        }
+                    }
+                });
     });
 
 });

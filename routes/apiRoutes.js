@@ -124,7 +124,6 @@ module.exports = function(app) {
         function(response) {
         try {
           // response tested as functional using 'zoloft' and 'acetaminophen'
-          /**** ERIK'S CODE HERE ****/
           console.log(response);
         }
           catch(err) {
