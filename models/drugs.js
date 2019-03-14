@@ -13,7 +13,18 @@ module.exports = function(sequelize, DataTypes) {
         validate: {
           len: [1]
         }
+      },
+      // adding primary key so we dont get duplicate combos
+      drugCombo: {
+        type: DataTypes.STRING,
+        // set primary key
+        primaryKey: true,
+        allowNull: false,
+        validate: {
+          len: [1]
+        }
       }
+
 
       /*
       email: {
