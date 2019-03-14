@@ -15,15 +15,4 @@ block content
                     p.lead Welcome! We are here to help you check for drug interactions between your medications. Your information will be stored so that you can come back to view all of your past searches and continue to search new combinations.
                     br
                     .text-center
-                        p.lead
-                            strong To begin, who are you?
-            // User button row
-            .row
-                .col-md-6
-                    .mb-3.text-center
-                        // ID just in case we need to grab in JS...not used in style css
-                        a#newUser.btn.userTypeBtn.btn-lg(href='/users/new', role='button') New User
-                .col-md-6
-                    .mb-3.text-center
-                        // ID just in case we need to grab in JS...not used in style css
-                        a#existUser.btn.userTypeBtn.btn-lg(href='/users', role='button') Returning User
+                        a#newUser.btn.userTypeBtn.btn-lg(href='/drugs/new', role='button') Get Started!

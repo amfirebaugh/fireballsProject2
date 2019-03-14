@@ -66,6 +66,13 @@ body {
     background-color: lightgray;
 }
 
+/* New Drug Page */
+
+#drug1, #drug2 {
+    width: 90%;
+}
+
+
 /* Results Page */
 
 .table {
