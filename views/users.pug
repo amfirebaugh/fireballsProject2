@@ -10,30 +10,40 @@ block content
                 .col-md-2
                     img#rxIcon(src='/assets/RX_icon.png')
             // Welcome text/instruction row
-            .row.mb-4
-                .col-md-12
-                    p.lead First select your email address. Next select the medication combination. Then click to view the drug interaction information.
             .row.mb-5
-                // User selects Email
-                .dropdown.col-md-4.text-center
-                    button#dropdownEXUFindYouButton.btn.btn-lg.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Email Addresses
-                    .dropdown-menu(aria-labelledby='dropdownEXUFindYouButton')
-                        // insert anchor tag with classes: .dropdown-item and something for this group, give each unique one an ID, and href just #
+                .col-md-12.text-center.mx-auto
+                    p.lead To confirm, what would you like to do? (You must click one to begin.)
+                    a.btn.btn-lg.userTypeBtn.mx-3(href='/drug/new', role='button') Enter a New Search
+                    // ******************** CHECK ID!!!
+                    button#dropdownNDFindYouButton.btn.btn-lg.userTypeBtn.mx-3(type='button') View a Saved Search
+            // Row for User Input
+            .row.mb-5
+                p#newDrugInstructions.lead.mb-4 First select your email address. Next select the medication combination. Then click to view the drug interaction information.
+                // User Selects Email
+                .col-md-4.text-center
+                    form
+                        .form-group
+                            // ******************** CHECK ID!!!
+                            select#emailReturn.custom-select.btn.btn-lg.rxInputDD
+                                option(value='') Email Addresses:
                 // User Selects Drug Combo
-                .dropdown.col-md-4.text-center
-                    button#dropdownFindMedsButton.btn.btn-lg.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Medications
-                    .dropdown-menu(aria-labelledby='dropdownFindMedsButton')
-                        // insert anchor tag with classes: .dropdown-item and something for this group, give each unique one an ID, and href just #
+                .col-md-4.text-center
+                    form
+                        .form-group
+                            // ******************** CHECK ID!!!
+                            select#IDK.custom-select.btn.btn-lg.rxInputDD
+                                option(value='') Medications:
                 // User clicks Submit
                 .col-md-4.text-center
-                    a#EXUSearchSubmit.btn.userTypeBtn.btn-lg(href='/drug/interaction-results', role='button') Submit
-            // Row in case existing user wants to go enter a new drug combo associated with their account
-            .row.mb-5
-                .col-md-12
-                    p.lead OR...Would you like to add a new medication combination to your account?
-                    .text-center
-                        a#EXUNewComboPage.btn.btn-lg.userTypeBtn(href='/drug/new', role='button') Enter A New Combo
+                    // ******************** CHECK ID!!!  ******* newDrugComboSubmit ??
+                    input#EXUSearchSubmit.btn.btn-lg.userTypeBtn(type='submit', value='See Results')
+            // Results Row
+            .row
+                #drugSearchResultsDiv.col-md-8.mx-auto.text-center.mb-4
+                    // (Allie Edit:) Just display results (not replacing the drug name results)
+                    // ******************** CHECK ID!!!
+                    div#drugInteractionsReturn
             // Return Home Row -- need on all pages except Home
             .row
                 .col-md-12.text-center
-                    a.btn.btn-sm.returnHomeBtn(href='/home', role='button') Return Home
+                    a.btn.btn-sm.returnHomeBtn(href='/', role='button') Return Home
