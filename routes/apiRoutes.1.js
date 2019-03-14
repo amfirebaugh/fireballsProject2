@@ -17,7 +17,7 @@ module.exports = function(app) {
     // ==========================================================================
 
     /* HOME ROUTE */
-    app.get("/index", function(req, res) {
+    app.get("/", function(req, res) {
       res.render('home');
     });
     
@@ -28,9 +28,14 @@ module.exports = function(app) {
     app.get("/drug/new", function(req, res) {
       res.render("new-drug");
     });
+
+    app.get("/users", function(req, res) {
+      res.render("users");
+    });
+
     
     /* 'DRUG/NEW' PAGE & 'USERS' PAGE:  GET EMAIL FROM USERS TABLE FOR DROPDOWN  */
-    app.get("/users", function(req, res) {
+    app.get("/usersEmail", function(req, res) {
       db.User.findAll({
         // this WORKS!
         attributes : ['email']})
@@ -45,23 +50,18 @@ module.exports = function(app) {
           } // end inner for
         } // end outer for
 
-        // console.log(emailArr);
         // send back to page in order to render email drop down
         res.json(emailArr);
+
       }); // end promise
     }); // end get users email
 
     /*************************************************** */
 
-    /* 'USERS' PAGE: GET SAVED DRUGS FROM DB */
-    app.get("/savedDrugs", function(req, res){
-      var emailAddr = 'solo@falcon.com';
-      db.User.findAll({
-        // find all drugs associated with user
-        include: [ db.Drug ],
-        /**** THE VALUE FOR EMAIL MUST BE PASSED IN BY REFERENCE ****/
-        where: {email: emailAddr}})
-        
+    /* 'USERS' PAGE: GET SAVED DRUGS FROM DB, TAKES USER EMAIL AS INPUT*/
+    app.post("/savedDrugs", function(req, res){
+
+      db.User.findAll({include: [ db.Drug ],where: {email: req.body.email}})
         .then( results => {
         var drugArr = [];
         for (var i = 0; i < results.length; i++) { 
@@ -76,9 +76,9 @@ module.exports = function(app) {
           } // end middle for
           
           /**** WE NEED TO USE THE DATA IN THIS ARRAY TO POPULATE THE MEDICATONS DROPDOWN ****/
+          // need to populate dropdown in pairs....
           console.log(drugArr);
-          /**** USE TEST.PUG TO SEND DATA TO BROWSER (AS TEST ONLY, REPLACE WITH ALLIES PAGE) ****/
-          res.render('test', {emails: drugArr});
+          
         } // end outer for
       }); // end promise
     }); // end get saved drugs

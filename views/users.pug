@@ -16,17 +16,35 @@ block content
             .row.mb-5
                 // User selects Email
                 .dropdown.col-md-4.text-center
-                    button#dropdownEXUFindYouButton.btn.btn-lg.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Email Addresses
-                    .dropdown-menu(aria-labelledby='dropdownEXUFindYouButton')
-                        // insert anchor tag with classes: .dropdown-item and something for this group, give each unique one an ID, and href just #
+                    //button#dropdownEXUFindYouButton.btn.btn-lg.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Email Addresses
+                    //.dropdown-menu(aria-labelledby='dropdownEXUFindYouButton')
+                    // insert anchor tag with classes: .dropdown-item and something for this group, give each unique one an ID, and href just #
+
+                    // DARREN'S EDIT
+                    input#dropdownEXUFindYouButton.btn.btn-warning(type='submit', value='Email Addresses')
+                    br
+                    // RETURN EMAILS IN SELECT LIST
+                    select#emailReturn(name='userEmailSelect', type='text')
+                        option(value='') Select
                 // User Selects Drug Combo
                 .dropdown.col-md-4.text-center
-                    button#dropdownFindMedsButton.btn.btn-lg.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Medications
-                    .dropdown-menu(aria-labelledby='dropdownFindMedsButton')
-                        // insert anchor tag with classes: .dropdown-item and something for this group, give each unique one an ID, and href just #
+                    //button#dropdownFindMedsButton.btn.btn-lg.dropdown-toggle.rxInputDD(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Medications
+                    //.dropdown-menu(aria-labelledby='dropdownFindMedsButton')
+                    // insert anchor tag with classes: .dropdown-item and something for this group, give each unique one an ID, and href just #
+
+                    // DARREN'S EDIT
+                    input#dropdownEXUFindMedications.btn.btn-warning(type='submit', value='Medications')
+                    br
+                    // RETURN EMAILS IN SELECT LIST
+                    // DARREN'S EDIT
+                    select#comboReturn(name='userDrugSelect', type='text')
+                        option(value='') Select
+
                 // User clicks Submit
+                    
                 .col-md-4.text-center
-                    a#EXUSearchSubmit.btn.userTypeBtn.btn-lg(href='/drug/interaction-results', role='button') Submit
+                    //a#EXUSearchSubmit.btn.userTypeBtn.btn-lg(href='/drug/interaction-results', role='button') Submit
+                    input#EXUSearchSubmit.btn.userTypeBtn.btn-lg(type='submit', value='Submit')
             // Row in case existing user wants to go enter a new drug combo associated with their account
             .row.mb-5
                 .col-md-12
@@ -37,3 +55,10 @@ block content
             .row
                 .col-md-12.text-center
                     a.btn.btn-sm.returnHomeBtn(href='/home', role='button') Return Home
+            .row
+            #drugSearchResultsDiv.col-md-8.mx-auto.text-center.mb-4
+                    // INSERT RESULTS FROM DRUG NAME API
+                    // DARREN'S EDIT
+                    // AFTER INTERACTION SEARCH WE REPLACE DRUG NAME RESULTS WITH INTERACTION RESULTS; Search BUTTON CLEARS DIVS
+                    div#drugReturnList
+                    div#drugInteractionsReturn
