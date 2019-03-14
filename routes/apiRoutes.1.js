@@ -17,7 +17,7 @@ module.exports = function(app) {
     // ==========================================================================
 
     /* HOME ROUTE */
-    app.get("/home", function(req, res) {
+    app.get("/", function(req, res) {
       res.render('home');
     });
     
@@ -98,7 +98,7 @@ module.exports = function(app) {
         });    
       });
 
-    /* API CALL GET DRUG NAME */
+    /* API CALLS */
     app.post("/api/getDrug", function(req, res) {
           //console.log(req.body.name);
           // api call to get drug name, pass in req.body object (specifically the value of 'name' key) into API call
@@ -111,34 +111,9 @@ module.exports = function(app) {
               // send result back to new drug page
               res.send(results1);
           });
-    }); // END GET DRUG NAME
+    }); 
 
-    /* API CALL GET DRUG INTERACTION */
     app.post("/api/interaction", function(req, res) {
-
-      // need to get age and sex from user table
-      // This array is initialized as empty but will be filled in with the symptoms that are common to both the user's age and gender
-      var mostLikelySymptoms = '';
-      var otherPossibleSymptoms = '';
-      var symptomResponseArr = [];
-
-      // Initialize Keys
-      var age;
-      var gender;
-
-      db.User.findAll({
-        // find all drugs associated with user
-        include: [ db.Drug ],
-        // this where points to User
-        where: {email:req.body.email},
-        
-        }).then( results => {
-
-          age = results[0].dataValues.age
-          gender =  results[0].dataValues.sex
-
-      });
-
       // save drug combo to db
       // sequelize does not need to have an explicit join as does SQL.  Tested with invalid email and constraint was enforced.
       db.Drug.create({drugname1: req.body.name1, drugname2: req.body.name2, UserEmail:req.body.email});
@@ -149,66 +124,22 @@ module.exports = function(app) {
         function(response) {
         try {
           // response tested as functional using 'zoloft' and 'acetaminophen'
-          // console.log(response);
-          // console.log('age is',age)
-          // console.log('gender is',gender)
-
-          test = response;
-          //console.log('test is', test.data.age_interaction)
-          for (var i = 0; i < test.data.age_interaction[age].length; i++) {
-              for (var j = 0; j < test.data.gender_interaction[gender].length; j++) {
-                  if (test.data.age_interaction[age][i] === test.data.gender_interaction[gender][j]) {
-                      mostLikelySymptoms += test.data.age_interaction[age][i] + ' || '
-                  }
-              }
-          }
-          //console.log('most likey symptoms', mostLikelySymptoms);
-          symptomResponseArr.push(mostLikelySymptoms);
+          /**** ERIK'S CODE HERE ****/
+          console.log(response);
         }
-        catch(err) {
-          console.log(err);
-        }
-        }).then(function() {
-          try {
-            for (var i = 0; i < test.data.age_interaction[age].length; i++) {
-                for (var j = 0; j < mostLikelySymptoms.length; j++) {
-                    if (test.data.age_interaction[age][i] !== mostLikelySymptoms[j]) {
-                        if (!otherPossibleSymptoms.includes(test.data.age_interaction[age][i])) {
-                        otherPossibleSymptoms += test.data.age_interaction[age][i] + ' || '
-                        }
-                    }
-                }
-            }
-            for (var i = 0; i < test.data.gender_interaction[gender].length; i++) {
-              for (var j = 0; j < mostLikelySymptoms.length; j++) {
-                  if (test.data.gender_interaction[gender][i] !== mostLikelySymptoms[j]) {
-                      if (!otherPossibleSymptoms.includes(test.data.gender_interaction[gender][i])) {
-                      otherPossibleSymptoms += test.data.gender_interaction[gender][i] + ' || '
-                      }
-                  }
-              }
-            }
-            //console.log('other possible symptoms', otherPossibleSymptoms);
-            symptomResponseArr.push(otherPossibleSymptoms);
-            console.log('Array',symptomResponseArr);
-            
-            // return data to calling function
-            res.json(symptomResponseArr);
-          }
           catch(err) {
             console.log(err);
           }
-        }).catch(function(err){
-            console.log('there is an error', err);
-            res.send('500 Error');
         });
-
-    }); // END INTERACTION API
+  });
 
   // ==========================================================================
   // TEST ROUTE UNUSED BY APP
   // ==========================================================================
   
+  
+
+
     /* TEST ROUTE FOR DRUG SEQUELIZE - APP DOES NOT USE THIS ROUTE */
     app.get("/db/test", function(req, res) { 
         res.send('testing db, see node console!')
@@ -223,7 +154,7 @@ module.exports = function(app) {
         }).then( results => {
 
         /* log firstname lastname */
-        console.log(results[0].dataValues.age, results[0].dataValues.sex,);
+        // console.log(results[0].dataValues.firstname, results[0].dataValues.lastname,);
 
         /* log the first 2 drug combos for solo*/
         // console.log(results[0].dataValues.Drugs[0].dataValues.drugname1, results[0].dataValues.Drugs[0].dataValues.drugname2);
@@ -242,24 +173,10 @@ module.exports = function(app) {
               }   
             }
           }
-          //console.log(drugArr);
-          //res.send(drugArr)
+          console.log(drugArr);
+          res.send(drugArr)
         }
       });
-    }); // END TEST ROUTE FOR DB
-
-    // ==========================================================================
-    // 404 ROUTE
-    // ==========================================================================
-    
-    app.get('*', function(req, res) {
-      res.render('404');
     });
 
-}; // END MODULE EXPORTS
-
-
-
-  
-
-  
+  };
