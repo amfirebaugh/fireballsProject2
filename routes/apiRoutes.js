@@ -143,7 +143,7 @@ module.exports = function(app) {
 
       // save drug combo to db
       // sequelize does not need to have an explicit join as does SQL.  Tested with invalid email and constraint was enforced.
-      var drugCombo = req.body.name1 +'-'+ req.body.name2;
+      var drugCombo = req.body.name1 +'-'+ req.body.name2 +'-'+ req.body.email;
       console.log(drugCombo);
       db.Drug.create({drugname1: req.body.name1, drugname2: req.body.name2, drugCombo, UserEmail:req.body.email});
       // api call to get drug interaction, return data to calling form

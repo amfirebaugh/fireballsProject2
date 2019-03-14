@@ -81,9 +81,12 @@ $(document).ready(function() {
                  $.each(data, function(index, value) {
                      console.log('value is', value)
                      // populate the select dropdown
-                     // combos are based on drug table records drugname1 + drugname2
+                     // combos are based on drug table records drugname1 + drugname2. 
+                     // since combo is primary key, need to get rid of email portion of combo
+                     var drugComboArr = value.split('-');
                      var optionItemCombo = $('<option>');
-                     optionItemCombo.text(value);
+                     var drugNamesOnly = drugComboArr[0]+'-'+drugComboArr[1];
+                     optionItemCombo.text(drugNamesOnly);
                      $("#comboReturn").append(optionItemCombo);   
                  });
             }
