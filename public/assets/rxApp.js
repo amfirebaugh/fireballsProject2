@@ -48,7 +48,7 @@ $(document).ready(function() {
     $('#dropdownEXUFindYouButton').on('click', (event) => {
         console.log('clicked');
         event.preventDefault();
-        // ensure the medications dropdown is emptied of prior searches
+        // ensure the medications dropdown is emptied of prior searches so they do not append
         $("#comboReturn").empty();
 
         // the drugs retrieved need to be based on the user's email selected.
@@ -70,6 +70,8 @@ $(document).ready(function() {
     $('#dropdownEXUFindMedications').on('click', (event) => {
         console.log('clicked');
         event.preventDefault();
+        // ensure the medications dropdown is emptied of prior searches so they do not append
+        $("#comboReturn").empty();
 
         // get email value
         var userEmailObject = {email: $('#emailReturn').val().trim()};
