@@ -14,13 +14,13 @@ CREATE TABLE user (
 );
 
 CREATE TABLE drug (
-  ID int NOT NULL AUTO_INCREMENT,
   email VARCHAR(255) NOT NULL,
   drugname1 VARCHAR(255) NOT NULL,
   drugname2 VARCHAR(255) NOT NULL,
+  drugCombo VARCHAR(255) NOT NULL,
   
-  PRIMARY KEY ( ID ),
-  FOREIGN KEY (email) REFERENCES user(email)
+  PRIMARY KEY ( drugCombo ),
+  FOREIGN KEY (email) REFERENCES users(email)
 );
 
 

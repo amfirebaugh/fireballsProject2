@@ -48,6 +48,8 @@ $(document).ready(function() {
     $('#dropdownEXUFindYouButton').on('click', (event) => {
         console.log('clicked');
         event.preventDefault();
+        // ensure the medications dropdown is emptied of prior searches
+        $("#comboReturn").empty();
 
         // the drugs retrieved need to be based on the user's email selected.
         $.get("/usersEmail", function(data) {
