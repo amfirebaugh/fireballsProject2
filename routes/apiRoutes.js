@@ -17,7 +17,7 @@ module.exports = function(app) {
     // ==========================================================================
 
     /* HOME ROUTE */
-    app.get("/index", function(req, res) {
+    app.get("/", function(req, res) {
       res.render('home');
     });
     
@@ -28,9 +28,14 @@ module.exports = function(app) {
     app.get("/drug/new", function(req, res) {
       res.render("new-drug");
     });
+
+    app.get("/users", function(req, res) {
+      res.render("users");
+    });
+
     
     /* 'DRUG/NEW' PAGE & 'USERS' PAGE:  GET EMAIL FROM USERS TABLE FOR DROPDOWN  */
-    app.get("/users", function(req, res) {
+    app.get("/usersEmail", function(req, res) {
       db.User.findAll({
         // this WORKS!
         attributes : ['email']})
@@ -45,47 +50,44 @@ module.exports = function(app) {
           } // end inner for
         } // end outer for
 
-        // console.log(emailArr);
-        // send back to page in order to render email drop down
+        // send back to calling function order to render email drop down
         res.json(emailArr);
+
       }); // end promise
     }); // end get users email
 
-    /*************************************************** */
-
-    /* 'USERS' PAGE: GET SAVED DRUGS FROM DB */
-    app.get("/savedDrugs", function(req, res){
-      var emailAddr = 'solo@falcon.com';
-      db.User.findAll({
-        // find all drugs associated with user
-        include: [ db.Drug ],
-        /**** THE VALUE FOR EMAIL MUST BE PASSED IN BY REFERENCE ****/
-        where: {email: emailAddr}})
-        
-        .then( results => {
-        var drugArr = [];
-        for (var i = 0; i < results.length; i++) { 
-          for (var j = 0; j < results[i].dataValues.Drugs.length; j++) {
-            for (key in results[i].dataValues.Drugs[j].dataValues) {
-              if (key.includes('drugname')){
-                  //console.log(results[i].dataValues.Drugs[j].dataValues[key]);
-                  // pass to array
-                  drugArr.push(results[i].dataValues.Drugs[j].dataValues[key]);
-              } // end if 
-            } // end inner for
-          } // end middle for
-          
-          /**** WE NEED TO USE THE DATA IN THIS ARRAY TO POPULATE THE MEDICATONS DROPDOWN ****/
-          console.log(drugArr);
-          /**** USE TEST.PUG TO SEND DATA TO BROWSER (AS TEST ONLY, REPLACE WITH ALLIES PAGE) ****/
-          res.render('test', {emails: drugArr});
-        } // end outer for
-      }); // end promise
-    }); // end get saved drugs
+   
 
     // ==========================================================================
     // POST ROUTES
     // ==========================================================================
+
+    /* 'USERS' PAGE: GET SAVED DRUGS FROM DB, TAKES USER EMAIL AS INPUT*/
+    
+    app.post("/savedDrugs", function(req, res){
+
+      db.Drug.findAll({attributes: ['drugCombo'],where: {UserEmail: req.body.email}})
+        .then( results => {
+        var drugArr = [];
+        for (var i = 0; i < results.length; i++) { 
+          for (item in results[i]) {
+            if (item === 'dataValues') {
+              for(subitem in results[i][item]) {
+                if (subitem === 'drugCombo') {
+                  drugArr.push(results[i][item][subitem]);
+                }
+              }
+            }
+          }
+        }// end outer for
+
+        //console.log(drugArr);
+        // send saved drugs back to calling function
+        res.json(drugArr);
+
+      }); // end promise
+    }); // end get saved drugs
+
     
     /* ADD NEW USER ROUTE */
     // use body-parser via express to access form data
@@ -141,7 +143,9 @@ module.exports = function(app) {
 
       // save drug combo to db
       // sequelize does not need to have an explicit join as does SQL.  Tested with invalid email and constraint was enforced.
-      db.Drug.create({drugname1: req.body.name1, drugname2: req.body.name2, UserEmail:req.body.email});
+      var drugCombo = req.body.name1 +'-'+ req.body.name2 +'-'+ req.body.email;
+      console.log(drugCombo);
+      db.Drug.create({drugname1: req.body.name1, drugname2: req.body.name2, drugCombo, UserEmail:req.body.email});
       // api call to get drug interaction, return data to calling form
       console.log('in api interaction', req.body);
       var queryUrl = "https://www.ehealthme.com/api/v1/drug-interaction/" + req.body.name1 + "/" + req.body.name2 + "/";
