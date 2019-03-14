@@ -20,10 +20,10 @@ block content
                 p#newDrugInstructions.lead.mb-4 Select your email address, enter two medications, and click See Results. Spelling matters! Use our search bar below for help.
                 .col-md-4
                     // User selects Email
-                    form(method='GET', action='/users')
-                    .form-group
-                        select#emailReturn.custom-select.btn.userTypeBtn
-                            option(value='') Email Addresses:
+                    form
+                        .form-group
+                            select#emailReturn.custom-select.btn.userTypeBtn
+                                option(value='') Email Addresses:
                 .col-md-8
                     form.form-inline(method='POST', action='/api/interaction')
                         .form-row
