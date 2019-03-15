@@ -25,6 +25,7 @@ $(document).ready(function() {
     $('#dropdownNDFindYouButton').on('click', (event) => {
         console.log('clicked');
         event.preventDefault();
+        $("#emailReturn").empty();
         // get emails from sequelize within users route
         $.get("/usersEmail", function(data) {
             if (data) {
@@ -49,6 +50,7 @@ $(document).ready(function() {
         console.log('clicked');
         event.preventDefault();
         // ensure the medications dropdown is emptied of prior searches so they do not append
+        $("#emailReturn").empty();
         $("#comboReturn").empty();
 
         // the drugs retrieved need to be based on the user's email selected.
@@ -71,7 +73,7 @@ $(document).ready(function() {
     $('#emailReturn').on('click', (event) => {
         console.log('clicked');
         event.preventDefault();
-        // ensure the medications dropdown is emptied of prior searches so they do not append
+        // ensure the medications dropdown is emptied of prior searches so they do not append;
         $("#comboReturn").empty();
 
         // get email value
