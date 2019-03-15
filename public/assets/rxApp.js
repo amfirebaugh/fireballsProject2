@@ -71,6 +71,7 @@ $(document).ready(function() {
     // click event to get drug combos
      $('#emailReturn').on('click', (event) => {
          console.log('clicked');
+         $("#comboReturn").empty();
          event.preventDefault();
         // ensure the medications dropdown is emptied of prior searches so they do not append;
 
