@@ -22,16 +22,17 @@ block content
                 // User Selects Email
                 .col-md-4.text-center
                     form
-                        .form-group
+                        // BUG EDIT
+                        #dropdownEXUFindMedications.form-group
                             // ******************** CHECK ID!!! -- Good.
-                            select#emailReturn.custom-select.btn.btn-lg.rxInputDD
+                            select#emailReturn.custom-select.btn.btn-lg.rxInputDD.emailEntry
                                 option(value='') Email Addresses:
                 // User Selects Drug Combo
                 .col-md-4.text-center
                     form
                         .form-group
                             // ******************** CHECK ID!!! -- Not in use.
-                            select#IDK.custom-select.btn.btn-lg.rxInputDD
+                            select#comboReturn.custom-select.btn.btn-lg.rxInputDD
                                 option(value='') Medications:
                 // User clicks Submit
                 .col-md-4.text-center

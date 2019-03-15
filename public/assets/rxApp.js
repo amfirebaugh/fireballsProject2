@@ -66,38 +66,36 @@ $(document).ready(function() {
                 });
             }
         });
-    });
+    }); // dropdownEXUFindYouButton
 
     // click event to get drug combos
-    //$('#dropdownEXUFindMedications').on('click', (event) => {
-    $('#emailReturn').on('click', (event) => {
-        console.log('clicked');
-        event.preventDefault();
+     $('#emailReturn').on('click', (event) => {
+         console.log('clicked');
+         event.preventDefault();
         // ensure the medications dropdown is emptied of prior searches so they do not append;
-        $("#comboReturn").empty();
 
         // get email value
         var userEmailObject = {email: $('#emailReturn').val().trim()};
-        // console.log(userEmailObject)
+        console.log('user selected is',userEmailObject)
 
         // the drugs retrieved need to be based on the user's email selected.
         $.post("/savedDrugs", userEmailObject)
             .then(function(data) {
-             if (data) {
-                 // send data back to page
-                 $.each(data, function(index, value) {
-                     console.log('value is', value)
-                     // populate the select dropdown
-                     // combos are based on drug table records drugname1 + drugname2. 
-                     // since combo is primary key, need to get rid of email portion of combo
-                     var drugComboArr = value.split('-');
-                     var optionItemCombo = $('<option>');
-                     var drugNamesOnly = drugComboArr[0]+'-'+drugComboArr[1];
-                     optionItemCombo.text(drugNamesOnly);
-                     $("#comboReturn").append(optionItemCombo);   
-                 });
+            if (data) {
+                // send data back to page
+                $.each(data, function(index, value) {
+                    console.log('value is', value)
+                    // populate the select dropdown
+                    // combos are based on drug table records drugname1 + drugname2. 
+                    // since combo is primary key, need to get rid of email portion of combo
+                    var drugComboArr = value.split('-');
+                    var optionItemCombo = $('<option>');
+                    var drugNamesOnly = drugComboArr[0]+'-'+drugComboArr[1];
+                    optionItemCombo.text(drugNamesOnly);
+                    $("#comboReturn").append(optionItemCombo);   
+                });
             }
-         });
+        });
     });
 
     // click event to get saved searches from returning users page via drug interactions API search
